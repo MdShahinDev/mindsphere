@@ -1,0 +1,1 @@
+Common styles are written in the style.css file, and each page has its own separate CSS file. In every HTML file, both CSS files must be imported.
