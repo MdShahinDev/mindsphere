@@ -149,7 +149,7 @@ input {
     border-radius: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     background: #FFF0E7;
-    padding: 46px 26px;
+    padding: 46px 34px;
 }
 
 .image-side {
@@ -157,12 +157,6 @@ input {
     border-radius: 10px;
     width: 445px;
 }
-/* .image-side img {
-  width: 476px;
-  height: 538px;
-  object-fit: cover;
-  border-radius: 20px;
-} */
 .image-side img {
     width: 600px;
     height: 630px;
