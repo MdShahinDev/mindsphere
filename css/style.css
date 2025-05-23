@@ -21,7 +21,6 @@
 
 /* Login Page Styles  */
 .loginPage {
-  background: #fff7f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,13 +28,14 @@
 }
 
 .loginContainer {
-  background: white;
-  display: flex;
-  border-radius: 16px;
-  max-width: 900px;
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+    background: #fff0e7;
+    display: flex;
+    border-radius: 16px;
+    max-width: 900px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 25px 25px;
 }
 
 .form-container {
@@ -44,32 +44,31 @@
 }
 
 .image-container {
-  flex: 1;
-  background: #ffeede;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    flex: 1;
+    background: #F5E1CC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    position: relative;
 }
 
 .image-container img {
-  width: 100%;
-  max-width: 410px;
+    position: absolute;
+    width: 520px;
+    top: 34px;
+    right: -47px;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: 700;
-  margin-bottom: 20px;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 42px;
 }
 
 .highlight {
   color: #ff6b00;
 }
-
-/* h2 { 
-    font-size: 26px;
-    margin-bottom: 10px;
-} */
 
 .subtitle {
   font-size: 14px;
@@ -133,41 +132,53 @@ input {
   text-decoration: none;
 }
 
-/* Signup Page Styles  */
+/*=== Signup Page Styles  */
 .signup-body {
   height: 100vh;
-  background-color: #fff7f2;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .main-body {
-  width: 90%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-  border-radius: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 1000px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: #FFF0E7;
+    padding: 46px 26px;
 }
 
 .image-side {
-  background-color: #f5e1cc;
-  border-radius: 10px;
+    background-color: #F5E1CC;
+    border-radius: 10px;
+    width: 445px;
 }
-.image-side img {
+/* .image-side img {
   width: 476px;
   height: 538px;
   object-fit: cover;
   border-radius: 20px;
+} */
+.image-side img {
+    width: 600px;
+    height: 630px;
+    object-fit: cover;
+    border-radius: 20px;
+    position: relative;
+    left: -39px;
+    top: 5px;
 }
-
 .form-side {
-  max-width: 500px;
-  flex-grow: 1;
-  background-color: transparent;
-  text-align: center;
-  padding: 0 20px;
+    max-width: 500px;
+    flex-grow: 1;
+    background-color: transparent;
+    text-align: center;
+    padding-left: 28px;
+    padding-right: 41px;
 }
 .form-side h2 {
   font-size: 24px;
@@ -185,16 +196,17 @@ input {
   text-decoration: underline;
   color: #333;
 }
-
+.form{
+  margin-top: 52px;
+}
 /* Input styles for signup form  with login form input */
-form input[type="text"],
-form input[type="email"],
-form input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+
+form input[type="text"], form input[type="email"], form input[type="password"] {
+    width: 100%;
+    padding: 7px 12px;
+    margin-bottom: 22px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
 }
 
 .password-container {
@@ -220,19 +232,20 @@ form input[type="password"] {
   text-decoration: underline;
 }
 
-button {
-  background-color: #ff7500;
-  border: none;
-  color: white;
-  padding: 12px;
-  width: 100%;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+.signup-button {
+    background-color: #ff7500;
+    border: none;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 21px;
 }
 
-button:hover {
+.signup-button :hover {
   background-color: #e65900;
 }
 .bottom-login-text {
