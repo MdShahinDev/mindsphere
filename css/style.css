@@ -76,9 +76,10 @@
   margin-bottom: 30px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
+.login-form {
+    display: flex;
+    flex-direction: column;
+    padding-right: 30px;
 }
 
 label {
@@ -210,7 +211,7 @@ form input[type="text"], form input[type="email"], form input[type="password"] {
 .toggle-password {
   position: absolute;
   right: 12px;
-  top: 12px;
+  top: 8px;
   cursor: pointer;
 }
 

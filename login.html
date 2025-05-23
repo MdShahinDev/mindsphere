@@ -16,7 +16,7 @@
             Today is a new day. It's your day. You shape it. <br />
             Sign in to start managing your projects.
           </p>
-          <form>
+          <form class="login-form">
             <label>Email</label>
             <input type="email" name="email" placeholder="example@gmail.com" required />
 
