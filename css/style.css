@@ -28,14 +28,14 @@
 }
 
 .loginContainer {
-    background: #fff0e7;
-    display: flex;
-    border-radius: 16px;
-    max-width: 900px;
-    width: 100%;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 25px 25px;
+  background: #fff0e7;
+  display: flex;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 25px 25px;
 }
 
 .form-container {
@@ -44,26 +44,26 @@
 }
 
 .image-container {
-    flex: 1;
-    background: #F5E1CC;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 30px;
-    position: relative;
+  flex: 1;
+  background: #f5e1cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  position: relative;
 }
 
 .image-container img {
-    position: absolute;
-    width: 520px;
-    top: 34px;
-    right: -47px;
+  position: absolute;
+  width: 520px;
+  top: 34px;
+  right: -47px;
 }
 
 .logo {
-    font-size: 38px;
-    font-weight: 700;
-    margin-bottom: 42px;
+  font-size: 38px;
+  font-weight: 700;
+  margin-bottom: 42px;
 }
 
 .highlight {
@@ -77,9 +77,9 @@
 }
 
 .login-form {
-    display: flex;
-    flex-direction: column;
-    padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 30px;
 }
 
 label {
@@ -142,38 +142,38 @@ input {
   align-items: center;
 }
 .main-body {
-    width: 1000px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 50px;
-    border-radius: 30px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    background: #FFF0E7;
-    padding: 46px 34px;
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  background: #fff0e7;
+  padding: 46px 34px;
 }
 
 .image-side {
-    background-color: #F5E1CC;
-    border-radius: 10px;
-    width: 445px;
+  background-color: #f5e1cc;
+  border-radius: 10px;
+  width: 445px;
 }
 .image-side img {
-    width: 600px;
-    height: 630px;
-    object-fit: cover;
-    border-radius: 20px;
-    position: relative;
-    left: -39px;
-    top: 5px;
+  width: 600px;
+  height: 630px;
+  object-fit: cover;
+  border-radius: 20px;
+  position: relative;
+  left: -39px;
+  top: 5px;
 }
 .form-side {
-    max-width: 500px;
-    flex-grow: 1;
-    background-color: transparent;
-    text-align: center;
-    padding-left: 28px;
-    padding-right: 41px;
+  max-width: 500px;
+  flex-grow: 1;
+  background-color: transparent;
+  text-align: center;
+  padding-left: 28px;
+  padding-right: 41px;
 }
 .form-side h2 {
   font-size: 24px;
@@ -191,17 +191,19 @@ input {
   text-decoration: underline;
   color: #333;
 }
-.form{
+.form {
   margin-top: 52px;
 }
 /* Input styles for signup form  with login form input */
 
-form input[type="text"], form input[type="email"], form input[type="password"] {
-    width: 100%;
-    padding: 7px 12px;
-    margin-bottom: 22px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 7px 12px;
+  margin-bottom: 22px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 .password-container {
@@ -228,16 +230,16 @@ form input[type="text"], form input[type="email"], form input[type="password"] {
 }
 
 .signup-button {
-    background-color: #ff7500;
-    border: none;
-    color: white;
-    padding: 12px;
-    width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-    margin-top: 21px;
+  background-color: #ff7500;
+  border: none;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 21px;
 }
 
 .signup-button :hover {
@@ -247,3 +249,284 @@ form input[type="text"], form input[type="email"], form input[type="password"] {
   margin-top: 10px;
   text-align: start;
 }
+/* Dashboard Css Start Here */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 80px;
+  background: #fff;
+  height: 80px;
+}
+
+.dashboard-logo {
+  font-size: 32px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-logo span {
+  color: var(--primary-color);
+}
+
+.search-bar {
+  flex: 1;
+  margin: 0 30px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background: #e5e7eb;
+  max-width: 400px;
+  outline: none;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+}
+
+.notification {
+  position: relative;
+}
+
+.bell-icon {
+  font-size: 22px;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: #ff7500;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.profile-info {
+  text-align: right;
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+.profile-info img {
+  background: orange;
+}
+.profile-info .name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.profile-info .location {
+  font-size: 12px;
+  color: gray;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Dashboard Topbar End */
+
+/* Dashbaord Sidebar Start */
+.page-body {
+  display: flex;
+  width: 100%;
+}
+.dashboard-content {
+  width: 100%;
+  padding: 50px;
+}
+.dashboard-sidebar {
+  background-color: black;
+  width: 250px;
+  padding: 40px 20px;
+  height: 100vh;
+  border-radius: 10px;
+}
+.dashboard-menu-item {
+  margin-bottom: 20px;
+}
+.dashboard-menu ul li {
+  margin-bottom: 20px;
+  list-style: none;
+}
+
+.dashboard-menu ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  transition: all;
+  transition-duration: 300ms;
+}
+.dashboard-menu ul li a:hover {
+  color: var(--primary-color);
+}
+.dashboard-menu-item a.active {
+  color: var(--primary-color);
+}
+.dashboard-menu ul li a i {
+  margin-right: 10px;
+}
+
+/* help card */
+.dashboard-help-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  margin-top: 180px;
+}
+.dashboard-help-card .card {
+  border-radius: 8px;
+  padding: 0 7px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+  border: 1px solid white;
+}
+.question-icon {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -20px;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 20px;
+  border: 2px solid white;
+  box-shadow: 0 0 10px #ffa500, 0 0 5px #ffa500, 0 0 2px #ffa500;
+  box-sizing: border-box;
+}
+.question-icon span {
+  color: white;
+}
+.help-card-content {
+  color: #ddd;
+  margin-top: 50px;
+}
+.help-card-content-title {
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+.help-card-content .description {
+  font-size: 11px;
+  margin-bottom: 25px;
+}
+.help-card-content button {
+  background-color: var(--primary-color);
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: none;
+  font-size: 12px;
+  color: white;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+/* Dashboard Content */
+.dashboard-content {
+  background-color: var(--bg-color);
+}
+/* Task Page */
+.date-header {
+  margin-bottom: 20px;
+}
+.date-time h3 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.date-time p {
+  font-size: 20px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.date-header {
+  display: flex;
+  justify-content: space-between;
+}
+.avctivity {
+  display: flex;
+  gap: 60px;
+}
+.time-tracker,
+.taske-create {
+  background: #414141;
+  border-radius: 7px;
+  padding: 20px;
+  display: flex;
+  gap: 100px;
+  color: white;
+  align-items: center;
+}
+.text-card .title {
+  font-size: 18px;
+  font-weight: 500;
+}
+.text-card .description {
+  font-size: 14px;
+  font-weight: 300;
+  color: #cacaca;
+}
+.task-button {
+  background: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.activity-data-card {
+  padding: 20px 0;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 131px;
+}
+.single-data-card {
+  background-color: white;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+}
+.data-card-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  font-weight: 500;
+  align-items: center;
+}
+.data-card-text:last-child {
+  margin-bottom: 5px;
+}
+.progress {
+  font-size: 26px;
+  font-weight: 700;
+}
+.data-card-text .icon {
+  background-color: var(--bg-color);
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: var(--primary-color);
+  font-size: 28px;
+}
+.data-card-text .title {
+  font-weight: 500;
+}
+/* Dashbaord Sidebar End */
