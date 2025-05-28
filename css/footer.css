@@ -1,0 +1,134 @@
+footer{
+    background: #000;
+    padding: 5rem 0;
+    color: #fff;
+}
+footer .container .upper-div{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    /* display: flex;
+    justify-content: space-between */
+}
+
+footer .container .right{
+    display: flex;
+    justify-content: space-between;
+}
+
+footer .left h2 a{
+    color: #fff;
+    font-size: 34px;
+}
+footer .left h2 a span{
+    color: #ff7500;
+}
+
+footer .left p{
+    width: 70%;
+    margin-top: 30px;
+}
+.social-links {
+    display: flex;
+    margin-top: 30px;
+}
+.social-links a{
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    margin-right: 20px;
+    transition: .3s ease;
+}
+.social-links a:hover{
+    background-color: #ff7500;
+    color: #fff;
+}
+
+footer .item p{
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+footer .item{
+    margin-bottom: 40px;
+}
+
+footer .item a{
+    color: #fff;
+    display: block;
+    margin: 15px 0;
+    transition: .3s all ease;
+}
+footer .item a:hover{
+    transform: translateX(10px);
+}
+footer .subscribe{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+footer .copyright{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+footer .copyright p{
+    text-align: center;
+    font-size: 14px;
+}
+
+footer .copyright .margin{
+    margin-left: 7rem;
+}
+
+
+.subscribe .email-field{
+    width: 50%;
+    background-color: transparent;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    height: 50px;
+    margin-top: 15px;
+}
+.subscribe input{
+    background-color: #FFF;
+    border: 1px solid #fff;
+    border-right: none;
+    width: 70%;
+    height: 50px;
+    outline: none;
+    border-radius: 50px 0px 0px 50px;
+    margin-bottom: 0;
+    padding-left: 25px;
+    
+
+}
+.subscribe button{
+   width: 20%;
+   height: 50px;
+   border: 2px solid transparent;
+   background-color: #ff7500;
+   border-radius: 0px 50px 50px 0px;
+   color: #fff;
+   font-weight: bold;
+   transition: .3s all ease;
+   cursor: pointer;
+}
+.subscribe button:hover{
+    background-color: #FFF;
+   color: #ff7500;
+   border: 2px solid #ff7500;
+}

@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+/* Global Styles -*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+}
+nav {
+    position: relative;
+    top: 0;
+    z-index: 99;
+}
+nav .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    /* position: relative;
+    top: 0;
+    z-index: 99; */
+}
+
+nav .container .links {
+    display: flex;
+    justify-content: space-between;
+}
+nav h2 a{
+    font-size: 30px;
+}
+nav h2,
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+nav h2 span {
+    color: #ff7500;
+}
+
+nav .login-signup a {
+    padding: 10px 30px;
+    background-color: #FFF0E7;
+    border-radius: 15px;
+    color: #FF7500;
+    transition: .3s ease;
+
+}
+
+nav .login-signup a:hover {
+    background-color: #FF7500;
+    color: #FFF !important;
+}
+
+.login-signup .login-btn a {
+    background-color: transparent;
+    color: #000 !important;
+}
+
+.links ul {
+    display: flex;
+    list-style: none;
+}
+
+.links ul li a {
+    margin-left: 30px;
+    transition: .3s ease;
+
+}
+
+.links ul li a:hover {
+    color: #ff7500;
+}
