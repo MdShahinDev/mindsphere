@@ -529,4 +529,137 @@ form input[type="password"] {
 .data-card-text .title {
   font-weight: 500;
 }
+
+.bottom-section {
+    display: flex;
+    gap: 45px;
+}
+.recent-activity {
+    width: 50%;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+}
+.recent-activity-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    
+}
+.recent-activity-title h2{
+font-size: 18px;
+    font-weight: 500;
+}
+.recent-activity-form {
+    position: relative;
+    
+}
+.recent-activity .recent-activity-form input{
+  padding: 10px 10px;
+}
+.recent-activity-form  button {
+    position: absolute;
+    right: 20px;
+    top: 6px;
+    padding: 4px 15px;
+    background: orange;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.recent-activity-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; 
+  overflow: hidden;
+}
+.recent-activity-images img{
+  width:170px;
+}
+.tasks-section {
+  width: 50%;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+}
+.tasks-section .title h2 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.task-info i {
+  color: orange;
+  font-size: 18px;
+}
+
+.task-meta {
+    display: flex;
+    /* flex-direction: column; */
+    /* align-items: flex-end; */
+    gap: 30px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.time {
+  background: #ffe6cc;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 120px;
+  height: 6px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: orange;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.view-all-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  float: right;
+}
 /* Dashbaord Sidebar End */
