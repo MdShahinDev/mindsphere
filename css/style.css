@@ -776,6 +776,15 @@ section.hero {
   border-radius: 10px;
 }
 
+
+
+.dashboard-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
 .dashboard-menu-item {
   margin-bottom: 20px;
 }
@@ -812,7 +821,6 @@ section.hero {
   justify-content: center;
   align-items: center;
   padding: 0 10px;
-  margin-top: 180px;
 }
 
 .dashboard-help-card .card {
@@ -940,11 +948,12 @@ section.hero {
 }
 
 .activity-data-card {
-  padding: 20px 0;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
-  gap: 131px;
+    padding: 20px 0;
+    border-radius: 20px;
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2rem;
 }
 
 .single-data-card {
