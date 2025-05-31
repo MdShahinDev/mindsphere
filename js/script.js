@@ -104,3 +104,147 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+
+
+// ===================================  Pomodoro Timer START ===========================
+
+
+
+
+const openBtn = document.getElementById('openPopup');
+const closeBtn = document.getElementById('closePopup');
+const overlay = document.getElementById('popupOverlay');
+const timerDisplay = document.getElementById('timer');
+const tabButtons = document.querySelectorAll('.tab');
+const startBtn = document.getElementById('startBtn');
+
+let selectedTime = 1500; // default 25 mins in seconds
+let timerInterval = null;
+let timeRemaining = selectedTime;
+
+openBtn.addEventListener('click', () => {
+  overlay.style.display = 'flex';
+  resetTimer();
+});
+
+closeBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  stopTimer();
+});
+
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active class from all tabs
+    tabButtons.forEach(b => b.classList.remove('active'));
+    // Add active class to clicked tab
+    btn.classList.add('active');
+
+    // Update selected time and reset timer
+    selectedTime = parseInt(btn.dataset.time);
+    resetTimer();
+  });
+});
+
+startBtn.addEventListener('click', () => {
+  if (timerInterval) {
+    stopTimer();
+    startBtn.textContent = 'Start';
+  } else {
+    startTimer();
+    startBtn.textContent = 'Pause';
+  }
+});
+
+function updateTimerDisplay(seconds) {
+  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+  const secs = String(seconds % 60).padStart(2, '0');
+  timerDisplay.textContent = `${mins}:${secs}:00`;
+}
+
+function startTimer() {
+  if (timerInterval) return; // prevent multiple intervals
+
+  timerInterval = setInterval(() => {
+    if (timeRemaining <= 0) {
+      stopTimer();
+      alert('Time is up!');
+      return;
+    }
+    timeRemaining--;
+    updateTimerDisplay(timeRemaining);
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  timerInterval = null;
+}
+
+function resetTimer() {
+  stopTimer();
+  timeRemaining = selectedTime;
+  updateTimerDisplay(timeRemaining);
+  startBtn.textContent = 'Start';
+}
+
+// Initialize timer display
+updateTimerDisplay(selectedTime);
+
+
+
+// ===================================  Pomodoro Timer END ===========================
+
+
+
+
+
+
+
+
+
+
+// ===================================  ADD TASK START  ===========================
+const msOpenPopupBtn = document.getElementById('ms-openPopupBtn');
+const msPopupOverlay = document.getElementById('ms-popup-overlay');
+const msClosePopupBtn = document.getElementById('ms-closePopupBtn');
+const msContent = document.getElementById('ms-content');
+const msCancelBtn = document.getElementById('ms-cancelBtn');
+const msPriorityLevels = document.querySelectorAll('.ms-priority-level');
+
+function msOpenPopup() {
+  msPopupOverlay.style.display = 'flex';   // Show popup overlay with flex display
+  msContent.classList.add('ms-blur');      // Blur background
+  msPopupOverlay.setAttribute('aria-hidden', 'false');
+}
+
+function msClosePopup() {
+  msPopupOverlay.style.display = 'none';   // Hide popup overlay
+  msContent.classList.remove('ms-blur');   // Remove blur
+  msPopupOverlay.setAttribute('aria-hidden', 'true');
+}
+
+// Priority level toggle
+msPriorityLevels.forEach(level => {
+  level.addEventListener('click', () => {
+    msPriorityLevels.forEach(l => l.classList.remove('selected'));
+    level.classList.add('selected');
+  });
+});
+
+// Event listeners
+msOpenPopupBtn.addEventListener('click', msOpenPopup);
+msClosePopupBtn.addEventListener('click', msClosePopup);
+msCancelBtn.addEventListener('click', msClosePopup);
+
+// Close popup if clicking outside popup box
+msPopupOverlay.addEventListener('click', (e) => {
+  if (e.target === msPopupOverlay) {
+    msClosePopup();
+  }
+});
+
+
+
+// ===================================  ADD TASK END ===========================

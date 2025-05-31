@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindSphere Health</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="dashboard-top-bar">
+        <header class="header">
+            <div class="dashboard-logo">MIND<span>S</span>PHERE</div>
+            <input type="text" class="search-bar" placeholder="Search Project ..." />
+            <div class="right-section">
+                <div class="notification">
+                    <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge">12</span>
+                </div>
+
+                <div class="profile-info">
+                    <div class="avatar-info">
+                        <p class="name">Vladimir Putin</p>
+                        <p class="location">Moscow, Russia</p>
+                    </div>
+                    <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="page-body">
+        <div class="dashboard-sidebar">
+            <div class="dashboard-menu">
+                <ul class="dashboard-menu-item">
+                    <li>
+                        <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/Dashboard.html"><i class="fa-solid fa-border-all"></i>Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/DashboardTask.html" class="active"><i
+                                class="fa-solid fa-clipboard-check"></i>Task</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/DashboardChat.html"><i class="fa-solid fa-comment"></i>Chat</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/DashboardSetting.html"><i class="fa-solid fa-gear"></i>Setting</a>
+                    </li>
+                </ul>
+                <div class="dashboard-help-card">
+                    <div class="card">
+                        <p class="question-icon"><span>?</span></p>
+                        <div class="help-card-content">
+                            <p class="help-card-content-title">Help Center</p>
+                            <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
+                            <button class="button">Go To Help Center</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-content habit-tracker-ml">
+
+            <div class="user-top">
+                <h2>Good <span>Morning</span>, <span>Putin</span></h2>
+                <div class="date-info">
+                    <p>Mon, Feb 08 - Sun, 2025</p>
+                    <div class="custom-datepicker">
+                        <input class"date-picker" type="date" id="date">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- =================== HABIT TRACKER NAV START ====================== -->
+            <div class="habit-tracker-nav">
+                <a class="active" href="DashboardHabitML-health.html">Health</a>
+                <a href="DashboardHabitML-wellness.html">Wellness</a>
+                <a href="DashboardHabitML-productivity.html">Productivity</a>
+                <a href="DashboardHabitML-learning.html">Learning</a>
+            </div>
+            <!-- =================== HABIT TRACKER NAV END ====================== -->
+
+
+
+            <!-- =================== HABIT TRACKER BODY START ====================== -->
+            <div class="habit-tracker-body">
+                <div class="habit-box">
+                    <div class="checkbox-div"><input class="big-checkbox" type="checkbox" name="drink_water" id=""> <label for="">Drink Water</label>
+                    </div>
+                    <div>
+                        <label for="">Select Amount</label>
+                        <select name="Amount" id="">
+
+                            <option name="" id="">1 liter</option>
+                            <option name="" id="">2 liter</option>
+                            <option name="" id="">3 liter</option>
+                            <option name="" id="">4 liter</option>
+                            <option name="" id="">5 liter</option>
+                            <option name="" id="">6 liter</option>
+                            <option name="" id="">More than 6 liter</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="habit-box">
+                    <div class="checkbox-div"><input class="big-checkbox" type="checkbox" name="exerise" id=""> <label for="">Exercise</label></div>
+                    <div>
+                        <label for="">Select Duration</label>
+                        <select name="Duration" id="">
+
+                            <option name="" id="">less than 5 minute</option>
+                            <option name="" id="">More than 5 minute</option>
+                            <option name="" id="">More than 10 minute</option>
+                            <option name="" id="">More than 20 minute</option>
+                            <option name="" id="">More than 40 minute</option>
+                            <option name="" id="">More than 1 hour</option>
+                        </select>
+
+                    </div>
+                </div>
+
+
+                <div class="habit-box">
+                    <div class="checkbox-div"><input class="big-checkbox" type="checkbox" name="exerise" id=""> <label for="">Sound Sleep</label></div>
+                    <div>
+                        <label for="">Select Duration</label>
+                        <select name="Duration" id="">
+
+                            <option name="" id="">less than 1 hour</option>
+                            <option name="" id="">More than 1 hours</option>
+                            <option name="" id="">More than 2 hours</option>
+                            <option name="" id="">More than 3 hours</option>
+                            <option name="" id="">More than 4 hours</option>
+                            <option name="" id="">More than 5 hours</option>
+                            <option name="" id="">More than 6 hours</option>
+                            <option name="" id="">More than 7 hours</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="btn-box">
+                    <button class="btn update-btn">Update</button>
+                </div>
+            </div>
+        </div>
+        <!-- =================== HABIT TRACKER BODY END ====================== -->
+
+
+
+    </div>
+    </div>
+</body>
+
+</html>
