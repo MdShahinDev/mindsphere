@@ -1554,3 +1554,320 @@ section.hero {
 
 
 /* ===================== ADD TASK POPUP END ============================ */
+
+
+
+
+/* ===================== Dashboard CSS START ============================ */
+.dashboard-content {
+  background-color: #fff0e7;
+}
+.dashboard-full-content {
+  display: flex;
+  gap: 10px;
+}
+.dashboard-left {
+  width: 70%;
+}
+.dashboard-right {
+  width: 30%;
+}
+.my-task-card {
+  background-color: white;
+  border-radius: 10px;
+}
+.left-top {
+  margin-top: 40px;
+}
+.left-top {
+  display: flex;
+  gap: 20px;
+}
+.my-task-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+  width: 80%;
+}
+.my-task-card h2 {
+  font-size: 33px;
+  margin-bottom: 10px;
+}
+.time-frame {
+  display: flex;
+  gap: 70px;
+  margin-bottom: 20px;
+}
+.time-frame button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  color: #cacaca;
+}
+.time-frame button:first-child {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+.my-task-card .mini-title {
+  margin-top: 32px;
+  margin-bottom: 14px;
+}
+.task-card-progressbar p {
+  margin-top: 30px;
+}
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+
+.progress-text-label {
+  font-size: 20px;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.progress-value-display {
+  font-size: 20px;
+  font-weight: 500;
+  color: #f97316;
+}
+.progress-bar-visual {
+  background-color: #fff7ed;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+.progress-bar-actual {
+  background-color: #f97316;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+}
+.my-task-card .image-card {
+  display: flex;
+  gap: 1px;
+}
+.my-task-card .image-card img {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: -10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.my-task-card .image-card img:first-child {
+  margin-left: 0;
+}
+.task-tracker {
+    background: white;
+    padding: 16px 15px;
+    border-radius: 10px;
+}
+.task-tracker-count{
+  margin-top: 20px;
+  color: var(--primary-color);
+}
+.task-tracker h2 {
+  font-size: 35px;
+}
+.task-tracker h2:last-child {
+  margin: 40px 0;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+.left-bottom {
+    background: white;
+    margin-top: 16px;
+    padding: 30px;
+    border-radius: 10px;
+}
+.performance-and-date {
+  display: flex;
+  justify-content: space-between;
+}
+.left-bottom-week{
+  margin-top: -20px;
+  color: #666;
+}
+.performance-section{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+input.date-picker {
+    font-size: 12px;
+    padding: 5px 9px;
+}
+.performance-chart {
+    border: 1px solid #666;
+    width: 205px;
+    border-radius: 14px;
+    padding: 14px;
+}
+.chart-heading {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+}
+.chart-heading p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+.circle-percentage{
+  
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.parcentage-value {
+    background-color: #FFF0E7;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 22px;
+    margin-top: 20px;
+}
+.goal-achive {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.goal-dot{
+   width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+}
+.goal-achive h4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+.dashboard-right{
+  background-color: white;
+  border-radius: 10px;
+  padding: 30px;
+}
+.dashboard-right-icon-box{
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  color: #666;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+.deadline {
+    border: 1px solid #666;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.deadline-icon {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-right: 8px;
+}
+.deadline-title{
+  color: #ff7500;
+  font-weight: 500;
+}
+.deadline .close{
+  background: none;
+  border: none;
+}
+.task-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.task-header h3{
+  font-weight: 500;
+  font-size: 20px;
+}
+.dashboard-right-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.dashboard-right-button  button{
+  border: none;
+  display: inline-block; 
+  text-align: center;
+  width: auto; 
+  padding: 10px 50px; 
+  background-color: #ff7300; 
+  color: white; 
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 18px;
+}
+/* Cirlce */
+
+
+.circle-progress-value {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: white;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-bg {
+  fill: none;
+  stroke: #ffedd8;
+  stroke-width: 4;
+}
+
+.progress-ring-fill {
+  fill: none;
+  stroke: orange;
+  stroke-width: 4;
+  stroke-dasharray: 213.6;        /* 2πr = 2 * π * 34 */
+  stroke-dashoffset: 117.48;      /* 213.6 * (1 - 0.45) */
+  transition: stroke-dashoffset 0.5s;
+  stroke-linecap: round;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+  color: orange;
+}
+
+.task-tracker-parcentage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 18px;
+    margin-top: 22px;
+}
+
+/* ===================== Dashboard CSS END ============================ */
