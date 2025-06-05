@@ -1,0 +1,144 @@
+/* ===================== Dashboard CHAT CSS START ============================ */
+.chat-button {
+  text-align: end;
+}
+.chat-button i{
+  margin-right: 4px;
+}
+.chat-button button {
+    border: none;
+    background: #FF7500;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.chat-main-section {
+    width: 70%;
+    margin: auto;
+    margin-top: 60px;
+}
+.chat-title p {
+    font-size: 24px;
+    font-weight: 600;
+    color: #00000099;
+    margin-bottom: 5px;
+}
+.chat-title h2 {
+    font-size: 35px;
+    font-weight: 700;
+    margin-bottom: 31px;
+}
+.chat-message-box textarea {
+    width: 100%;
+}
+
+
+
+/* tRY */
+.chatbox-container {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid #ffb78c;
+    box-shadow: 0 0 10px rgba(255, 184, 136, 0.2);
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.chatbox-input {
+  width: 100%;
+  min-height: 120px;
+  border: none;
+  resize: none;
+  font-size: 16px;
+  padding: 15px;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.chatbox-input::placeholder {
+  color: #b3b3b3;
+}
+
+.chatbox-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #ffb78c;
+  padding: 8px 10px 0 10px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #4d4d4d;
+  position: relative;
+}
+
+.chatbox-actions button {
+  cursor: pointer;
+}
+
+.chatbox-meta {
+  display: flex;
+  align-items: center;
+}
+
+.char-count {
+  position: absolute;
+  margin-right: 10px;
+  color: #999;
+  font-size: 16px;
+  right: 1px;
+  bottom: 35px;
+}
+.chatbox-actions {
+    display: flex;
+    gap: 40px;
+}
+.send-button {
+    background-color: transparent;
+    color: #353535;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+.chat-send-button {
+    background: transparent;
+    border: none;
+    font-size: 17px;
+    color: orange;
+    cursor: pointer;
+}
+.send-button i{
+  margin-right: 5px;
+}
+
+.instruction {
+    margin-top: 70px;
+}
+.instruction-box{
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.instruction-box-item {
+    border: 1px solid black;
+    padding: 16px;
+    border-radius: 15px;
+}
+.instruction-box-item i {
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+.instruction-box-item h4 {
+  font-weight: 600;
+    font-size: 19px;
+    margin-bottom: 10px;
+}
