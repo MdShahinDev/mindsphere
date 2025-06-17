@@ -1,0 +1,221 @@
+h1,
+h2 {
+    color: #000;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin: 15px 0 5px;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background: #f5f3f7;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.photo-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.orange {
+    background-color: #ff7500;
+    color: white;
+}
+
+.cancel {
+    background-color: #eee;
+    color: black;
+}
+
+.skill-section {
+    margin-top: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-table {
+    margin-top: 10px;
+}
+
+.skill-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0b683;
+}
+
+.skill-row.header {
+    font-weight: bold;
+    color: #777;
+    border-bottom: 2px solid #ff7500;
+}
+
+.skill-row span {
+    flex: 1;
+    text-align: center;
+}
+
+.skill-row span:first-child {
+    text-align: left;
+}
+
+.icon-btn {
+    background-color: #ff7500;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    width: 600px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* .check div{
+    width: 50px;
+    height: 50px;
+    background-color: #ffcc00;
+} */
+
+.check i {
+   width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ff7500;
+}
+
+.stars i {
+    color: #ff7500;
+    margin: 5px;
+ 
+}
+
+.skills span {
+    color: #000;
+    /* display: block; */
+    font-weight: bold;
+    width: 25%;
+    text-align: center;
+}
+
+.skills {
+    background-color: #ff7500;
+    display: flex;
+    justify-content: space-between;
+}
+
+.skill_row {
+  width: 95%;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #ff7500;
+    text-align: center;
+
+
+}
+
+.heading {
+    background-color: #fff;
+    font-weight: 700;
+    padding: 20px 20px;
+}
+
+.skill_row p {
+    width: 25%;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.skill-table {
+    border-radius: 10px;
+    padding: 30px 0px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.checkbox_label input{
+    width: auto;
+}

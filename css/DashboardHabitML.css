@@ -1,0 +1,228 @@
+
+
+
+.header2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.datetime h2 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.left {
+  
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.tabs-card {
+  background: #e5e6ef;
+  padding: 8px;
+  border-radius: 35px;
+  display: flex;
+  justify-content: space-between;
+}
+input{
+  margin-bottom: 0px;
+}
+.tabs {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  justify-content: space-between;
+}
+.health_tabs{
+  display: flex;
+  width: 100%;
+}
+.tab {
+ width: 100%;
+  background: transparent;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 35px;
+  cursor: pointer;
+  color: #555;
+  font-weight: 500;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.tab.active {
+  background: #fff;
+  border: none;
+  font-weight: bold;
+  color: black;
+}
+
+.content-card {
+  background: white;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #222;
+  border-bottom: 2px solid #ff914d;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+}
+
+.checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.check-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.check-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+select {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: #f3f3f3;
+  min-width: 180px;
+}
+
+.action-btns {
+  margin-top: 25px;
+}
+
+.update {
+  background: orange;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel {
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+}
+
+.right {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+svg{
+    max-width: 50px;
+}
+
+.calendar-section {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#calendar-picker {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* --- Flatpickr Custom Calendar Styling --- */
+.flatpickr-calendar {
+  width: 100% !important;
+  font-family: 'Segoe UI', sans-serif;
+  border: none;
+  box-shadow: none;
+}
+
+.flatpickr-months {
+  border-bottom: 1px solid #f39c5e;
+  margin-bottom: 8px;
+}
+
+.flatpickr-month {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.flatpickr-weekdays {
+  border-bottom: none;
+}
+
+.flatpickr-weekday {
+  font-weight: 500;
+  color: #555;
+}
+
+.flatpickr-day {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 2px;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.today {
+  background: #ff914d !important;
+  color: white !important;
+  border: none;
+}
+
+.flatpickr-day:hover {
+  background: #ffe4d3 !important;
+}
+
+/* Motivation */
+.quote-box {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  font-style: italic;
+  line-height: 1.6;
+}
