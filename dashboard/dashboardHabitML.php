@@ -107,6 +107,7 @@
                     </div>
                 </div>
 
+              <form>
                 <div class="main">
                     <div class="left">
                         <div class="tabs-card">
@@ -149,6 +150,7 @@
                         </div>
                     </div>
                 </div>
+              </form>
             </div>
 
         </div>
