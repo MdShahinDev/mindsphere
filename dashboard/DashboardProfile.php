@@ -38,44 +38,47 @@
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                <ul class="dashboard-menu-item">
+                 <ul class="dashboard-menu-item">
             <li>
-              <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+              <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
             <li>
-              <a href="/dashboard/Dashboard.html" 
+              <a href="../dashboard/Dashboard.php" 
                 ><i class="fa-solid fa-border-all"></i>Dashboard</a
               >
             </li>
             <li>
-              <a href="/dashboard/DashboardTask.html"
+              <a href="../dashboard/DashboardTask.php"
                 ><i class="fa-solid fa-clipboard-check"></i>Task</a
               >
             </li>
             <li>
-              <a href="../dashboard/dashboardHabitML.html"
+              <a href="../dashboard/dashboardHabitML.php"
                 ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
               >
             </li>
             <li>
-              <a href="/dashboard/DashboardChat.html"
+              <a href="../dashboard/DashboardChat.php"
                 ><i class="fa-solid fa-comment"></i>Chat</a
               >
             </li>
             <li>
-              <a href="../dashboard/DashboardResourceLibrary.html"
+              <a href="../dashboard/DashboardResourceLibrary.php"
                 ><i class="fa-solid fa-book"></i>Resource Library</a
               >
             </li>
             <li>
-              <a href="../dashboard/DashboardProfile.html" class="active"
+              <a href="../dashboard/DashboardProfile.php" class="active"
                 ><i class="fa-solid fa-user"></i>Profile</a
               >
             </li>
-            <li>
-              <a href="/dashboard/DashboardSetting.html"
+            <!-- <li>
+              <a href="../dashboard/DashboardSetting.php"
                 ><i class="fa-solid fa-gear"></i>Setting</a
               >
+            </li> -->
+            <li>
+              <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
             </li>
           </ul>
                 <div class="dashboard-help-card">
@@ -105,10 +108,16 @@
                     </div>
 
                     <label>Full Name*</label>
-                    <input type="text" placeholder="Md Junayid Islam" />
+                    <input type="text" placeholder="Your Fullname..." />
 
-                    <label>Bio*</label>
-                    <textarea placeholder="Write something interesting about you……"></textarea>
+                    <label>Email*</label>
+                    <input type="email" placeholder="Your Email..." />
+
+                    <label>Address</label>
+                    <input type="text" placeholder="Your Address..." />
+
+                    <label>Password*</label>
+                    <input type="text" placeholder="Your Password..." />
 
                     <label>Select Profession</label>
                     <select>
@@ -251,7 +260,20 @@
         <div class="modal" id="skill-modal">
             <div class="modal-content">
                 <h3>Add Skill</h3>
-                <input type="text" id="skill-name" placeholder="Skill name" />
+                <select style="margin: 20px 0px;">
+                        <option selected>Public Speaking</option>
+                        <option>Negotiation</option>
+                        <option>Driving</option>
+                        <option>Team Work</option>
+                        <option>Leadership</option>
+                        <option>NEXT JS</option>
+                        <option>Python</option>
+                        <option>Machine Learning</option>
+                        <option>DBMS</option>
+                        <option>UI/UX Design</option>
+                        <option>Data Structure</option>
+                        <option>Blockchain</option>
+                    </select>
                 <input type="number" id="skill-grade" placeholder="Grade (1-5)" min="1" max="5" />
                 <label class="checkbox_label"><input type="checkbox" id="skill-assessed" /> Assessed</label>
                 <div class="modal-buttons">

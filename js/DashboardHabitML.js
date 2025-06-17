@@ -1,6 +1,6 @@
 const tabsData = {
   health: [
-    { name: "Drink Water", options: ["100ml", "250ml", "500ml", "1L"] },
+    { name: "Drink Water", options: ["100ml", "250ml", "500ml", "1L", "2L", "3L"] },
     { name: "Exercise", options: ["10 mins", "30 mins", "1 hour"] },
     { name: "Sound Sleep", options: ["<6 hrs", "6-8 hrs", ">8 hrs"] },
     { name: "Blood Pressure", options: ["Normal", "Elevated", "High"] },
