@@ -38,59 +38,62 @@
 
     <div class="page-body">
         <div class="dashboard-sidebar">
-      <div class="dashboard-menu">
-         <ul class="dashboard-menu-item">
+            <div class="dashboard-menu">
+                 <ul class="dashboard-menu-item">
             <li>
-              <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+              <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
             <li>
-              <a href="/dashboard/Dashboard.html"
+              <a href="../dashboard/Dashboard.php" 
                 ><i class="fa-solid fa-border-all"></i>Dashboard</a
               >
             </li>
             <li>
-              <a href="/dashboard/DashboardTask.html"
+              <a href="../dashboard/DashboardTask.php"
                 ><i class="fa-solid fa-clipboard-check"></i>Task</a
               >
             </li>
             <li>
-              <a href="../dashboard/dashboardHabitML.html"
+              <a href="../dashboard/dashboardHabitML.php"
                 ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
               >
             </li>
             <li>
-              <a href="/dashboard/DashboardChat.html"
+              <a href="../dashboard/DashboardChat.php"
                 ><i class="fa-solid fa-comment"></i>Chat</a
               >
             </li>
             <li>
-              <a href="../dashboard/DashboardResourceLibrary.html" class="active"
+              <a href="../dashboard/DashboardResourceLibrary.php" class="active"
                 ><i class="fa-solid fa-book"></i>Resource Library</a
               >
             </li>
             <li>
-              <a href="../dashboard/DashboardProfile.html"
+              <a href="../dashboard/DashboardProfile.php"
                 ><i class="fa-solid fa-user"></i>Profile</a
               >
             </li>
-            <li>
-              <a href="/dashboard/DashboardSetting.html"
+            <!-- <li>
+              <a href="../dashboard/DashboardSetting.php"
                 ><i class="fa-solid fa-gear"></i>Setting</a
               >
+            </li> -->
+            <li>
+              <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
             </li>
           </ul>
-        <div class="dashboard-help-card">
-          <div class="card">
-            <p class="question-icon"><span>?</span></p>
-            <div class="help-card-content">
-              <p class="help-card-content-title">Help Center</p>
-              <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
-              <button class="button">Go To Help Center</button>
+                <div class="dashboard-help-card">
+                    <div class="card">
+                        <p class="question-icon"><span>?</span></p>
+                        <div class="help-card-content">
+                            <p class="help-card-content-title">Help Center</p>
+                            <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
+                            <button class="button">Go To Help Center</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
 
 
 

@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MindSphere</title>
 
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/footer.css">
     <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer" />
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-<!-- ======== HERO SECTION STARTS HERE ======== -->
+    <!-- ======== HERO SECTION STARTS HERE ======== -->
 
 
     <section class="hero">
@@ -26,13 +28,13 @@
         <div class="wrapper container">
             <div class="left">
                 <h2>Think Clear, <br>
-Stay Focused, <br>
-Achieve  <span class="image-border">More</span> </h2>
+                    Stay Focused, <br>
+                    Achieve <span class="image-border">More</span> </h2>
 
                 <p>MindSphere is a self-help platform that supports personal growth and better time management. It helps users track their productivity, manage tasks, build habits, stay focused, and stay motivated. The goal is to make life more organized and balanced by offering helpful tools in one place.</p>
 
 
-                <a href="#">Get Started</a>
+                <a href="signup.php">Get Started</a>
 
 
             </div>
@@ -57,10 +59,10 @@ Achieve  <span class="image-border">More</span> </h2>
     </section>
 
 
-<!-- ======== HERO SECTION ENDS HERE ======== -->
+    <!-- ======== HERO SECTION ENDS HERE ======== -->
 
 
-  <!-- ======== SERVICE SECTION STARTS HERE ======== -->
+    <!-- ======== SERVICE SECTION STARTS HERE ======== -->
     <section class="services" id="services">
         <div class="container">
             <div class="service-cards">
@@ -90,7 +92,7 @@ Achieve  <span class="image-border">More</span> </h2>
 
 
 
-      <!-- ======== FEATURE SECTION STARTS HERE ======== -->
+    <!-- ======== FEATURE SECTION STARTS HERE ======== -->
     <section class="features">
         <div class="container">
             <h2>Top Features</h2>
@@ -99,8 +101,8 @@ Achieve  <span class="image-border">More</span> </h2>
                     <div class="feature-cards" id="featureCards">
                         <div class="feature-card">
                             <div class="feature-image productivity-img">
-                                
-                                 <img src="img/productivity-tracker.png" alt="">
+
+                                <img src="img/productivity-tracker.png" alt="">
                             </div>
                             <h3>Productivity Tracker</h3>
                             <button class="enroll-btn">Enroll Now</button>
@@ -121,7 +123,7 @@ Achieve  <span class="image-border">More</span> </h2>
                         </div>
                         <div class="feature-card">
                             <div class="feature-image ai-img">
-                               <img src="img/ai-assistant.png" alt="">
+                                <img src="img/ai-assistant.png" alt="">
                             </div>
                             <h3>AI Assistant</h3>
                             <button class="enroll-btn">Enroll Now</button>
@@ -147,12 +149,13 @@ Achieve  <span class="image-border">More</span> </h2>
         </div>
     </section>
 
- <!-- ======== FEATURE SECTION ENDS HERE ======== -->
+    <!-- ======== FEATURE SECTION ENDS HERE ======== -->
 
     <section class="footer">
         <?php include 'components/footer.php' ?>
     </section>
 
-     <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
 </body>
+
 </html>

@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION["username"] = $row["username"];
         $_SESSION["name"] = $row["name"];
 
-        header("Location: dashboard.html");  /// eita ami akta demo dashborad file call kore rakhsi, successfully login hoy ki na check korar jonno..........
+        header("Location: dashboard/Dashboard.php"); 
+        
         exit();
       } else {
         $login_error = true;
