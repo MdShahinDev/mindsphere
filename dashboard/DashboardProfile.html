@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindSphere - Profile</title>
+    <link rel="stylesheet" href="../css/DashboardProfile.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="dashboard-top-bar">
+        <header class="header">
+            <div class="dashboard-logo">MIND<span>S</span>PHERE</div>
+            <input type="text" class="search-bar" placeholder="Search Project ..." />
+            <div class="right-section">
+                <div class="notification">
+                    <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge">12</span>
+                </div>
+
+                <div class="profile-info">
+                    <div class="avatar-info">
+                        <p class="name">Vladimir Putin</p>
+                        <p class="location">Moscow, Russia</p>
+                    </div>
+                    <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="page-body">
+        <div class="dashboard-sidebar">
+            <div class="dashboard-menu">
+                <ul class="dashboard-menu-item">
+            <li>
+              <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+            </li>
+            <li>
+              <a href="/dashboard/Dashboard.html" 
+                ><i class="fa-solid fa-border-all"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardTask.html"
+                ><i class="fa-solid fa-clipboard-check"></i>Task</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/dashboardHabitML.html"
+                ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardChat.html"
+                ><i class="fa-solid fa-comment"></i>Chat</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/DashboardResourceLibrary.html"
+                ><i class="fa-solid fa-book"></i>Resource Library</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/DashboardProfile.html" class="active"
+                ><i class="fa-solid fa-user"></i>Profile</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardSetting.html"
+                ><i class="fa-solid fa-gear"></i>Setting</a
+              >
+            </li>
+          </ul>
+                <div class="dashboard-help-card">
+                    <div class="card">
+                        <p class="question-icon"><span>?</span></p>
+                        <div class="help-card-content">
+                            <p class="help-card-content-title">Help Center</p>
+                            <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
+                            <button class="button">Go To Help Center</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-content ">
+            <div>
+                <h1>My Profile</h1>
+
+                <!-- Profile Section -->
+                <div class="profile-box">
+                    <div class="profile-header">
+                        <img src="../img/profilePicture.png" class="avatar" />
+                        <div class="photo-buttons">
+                            <button class="btn orange">Upload new photo</button>
+                            <button class="btn delete">Delete</button>
+                        </div>
+                    </div>
+
+                    <label>Full Name*</label>
+                    <input type="text" placeholder="Md Junayid Islam" />
+
+                    <label>Bio*</label>
+                    <textarea placeholder="Write something interesting about you……"></textarea>
+
+                    <label>Select Profession</label>
+                    <select>
+                        <option selected>Software Engineer</option>
+                        <option>Frontend Developer</option>
+                        <option>Backend Developer</option>
+                        <option>Data Scientist</option>
+                        <option>UI/UX Designer</option>
+                    </select>
+                </div>
+
+                <!-- Personal Skill Section -->
+                <div class="skill-section">
+                    <div class="section-header">
+                        <h2>Personal Skill</h2>
+                        <div>
+                            <button class="icon-btn" onclick="openModal('personal')"><i
+                                    class="fa-solid fa-plus"></i></button>
+
+                        </div>
+                    </div>
+                    <div class="skill-table">
+                        <div class="skill_row heading">
+                            <p>Skills</p>
+                            <p>Grade</p>
+                            <p>Assessed</p>
+                            <p>Proficiency Chart</p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Professional Skill Section -->
+             <div class="skill-section">
+                    <div class="section-header">
+                        <h2>Professional Skill</h2>
+                        <div>
+                            <button class="icon-btn" onclick="openModal('personal')"><i
+                                    class="fa-solid fa-plus"></i></button>
+
+                        </div>
+                    </div>
+                    <div class="skill-table">
+                        <div class="skill_row heading">
+                            <p>Skills</p>
+                            <p>Grade</p>
+                            <p>Assessed</p>
+                            <p>Proficiency Chart</p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+                        <div class="skill_row skill">
+                            <p>Skill Name</p>
+                            <p>4/5</p>
+                            <p class="check"><i class="fa-solid fa-check"></i></p>
+                            <p class="stars">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </p>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+
+
+
+
+          
+
+            <!-- Save/Cancel -->
+            <div class="action-buttons">
+                <button class="btn orange">Save</button>
+                <button class="btn cancel">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Modal Popup -->
+        <div class="modal" id="skill-modal">
+            <div class="modal-content">
+                <h3>Add Skill</h3>
+                <input type="text" id="skill-name" placeholder="Skill name" />
+                <input type="number" id="skill-grade" placeholder="Grade (1-5)" min="1" max="5" />
+                <label class="checkbox_label"><input type="checkbox" id="skill-assessed" /> Assessed</label>
+                <div class="modal-buttons">
+                    <button class="btn orange" onclick="saveSkill()">Save</button>
+                    <button class="btn cancel" onclick="closeModal()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <!-- =================== HABIT TRACKER BODY END ====================== -->
+
+
+
+    </div>
+    </div>
+
+    <script src="../js/DashboardProfile.js"></script>
+</body>
+
+</html>

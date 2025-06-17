@@ -1,0 +1,161 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #fff7f3;
+  color: #333;
+  line-height: 1.6;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffece3;
+  padding: 3rem 10%;
+  flex-wrap: wrap;
+}
+
+.hero-left {
+  flex: 1 1 45%;
+}
+
+.hero-left h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.highlight {
+  color: #ff6a00;
+}
+
+.subheading {
+  font-weight: bold;
+  color: #ff6a00;
+  margin: 10px 0;
+}
+
+.hero-left p {
+  margin: 10px 0 20px;
+  max-width: 500px;
+}
+
+.hero-right {
+  flex: 1 1 45%;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-right img {
+  width: 250px;
+  max-width: 100%;
+}
+
+.btn {
+  background: #ff6a00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0 20px;
+  gap: 15px;
+}
+
+.tab {
+  background: #f2f2f2;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.tab.active,
+.tab:hover {
+  background: #ff6a00;
+  color: white;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+  padding: 0 10%;
+  margin-bottom: 40px;
+}
+
+.video-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.video-card iframe {
+  width: 100%;
+  height: 220px;
+  border: none;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.content h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.stars {
+  color: gold;
+  font-size: 1.1rem;
+}
+
+.load-more-container {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+
+.star {
+  display: inline-block;
+  font-size: 1.2rem;
+  position: relative;
+  color: lightgray;
+}
+
+.star.full {
+  color: gold;
+}
+
+.star.half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  width: 50%;
+  overflow: hidden;
+  color: gold;
+}
+.rmv-bg{
+    background-color: transparent;
+}

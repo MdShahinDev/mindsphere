@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindSphere - Profile</title>
+    
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/DashboardHabitML.css" />
+    <!-- Font Awesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="dashboard-top-bar">
+        <header class="header">
+            <div class="dashboard-logo">MIND<span>S</span>PHERE</div>
+            <input type="text" class="search-bar" placeholder="Search Project ..." />
+            <div class="right-section">
+                <div class="notification">
+                    <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
+                    <span class="badge">12</span>
+                </div>
+
+                <div class="profile-info">
+                    <div class="avatar-info">
+                        <p class="name">Vladimir Putin</p>
+                        <p class="location">Moscow, Russia</p>
+                    </div>
+                    <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="page-body">
+        <div class="dashboard-sidebar">
+            <div class="dashboard-menu">
+                 <ul class="dashboard-menu-item">
+            <li>
+              <a href="#"><i class="fa-solid fa-house"></i>Home</a>
+            </li>
+            <li>
+              <a href="/dashboard/Dashboard.html" 
+                ><i class="fa-solid fa-border-all"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardTask.html"
+                ><i class="fa-solid fa-clipboard-check"></i>Task</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/dashboardHabitML.html" class="active"
+                ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardChat.html"
+                ><i class="fa-solid fa-comment"></i>Chat</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/DashboardResourceLibrary.html"
+                ><i class="fa-solid fa-book"></i>Resource Library</a
+              >
+            </li>
+            <li>
+              <a href="../dashboard/DashboardProfile.html"
+                ><i class="fa-solid fa-user"></i>Profile</a
+              >
+            </li>
+            <li>
+              <a href="/dashboard/DashboardSetting.html"
+                ><i class="fa-solid fa-gear"></i>Setting</a
+              >
+            </li>
+          </ul>
+                <div class="dashboard-help-card">
+                    <div class="card">
+                        <p class="question-icon"><span>?</span></p>
+                        <div class="help-card-content">
+                            <p class="help-card-content-title">Help Center</p>
+                            <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
+                            <button class="button">Go To Help Center</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard-content ">
+            <div class="dashboard">
+                <div class="header2">
+                    <div>
+                        <h1>Good Morning, Putin</h1>
+                        <p class="subtitle">12 hrs 44 mins till bedtime</p>
+                    </div>
+                    <div class="datetime">
+                        <h2 id="dayName">Thursday</h2>
+                        <p id="fullDate">May 22, 2025 | 10:00 AM</p>
+                    </div>
+                </div>
+
+                <div class="main">
+                    <div class="left">
+                        <div class="tabs-card">
+                            <div class="health_tabs">
+                                <button class="tab active" onclick="showTab(event, 'health')">Health</button>
+                                <button class="tab" onclick="showTab(event, 'wellness')">Wellness</button>
+                                <button class="tab" onclick="showTab(event, 'productivity')">Productivity</button>
+                                <button class="tab" onclick="showTab(event, 'learning')">Learning</button>
+                            </div>
+                        </div>
+
+                        <div class="content-card">
+                            <div class="card-header">
+                                <span>Habit Checklist</span>
+                                <span>Habit Path</span>
+                            </div>
+                            <div id="checklist" class="checklist">
+                                <!-- JS will populate -->
+                            </div>
+                            <div class="action-btns">
+                                <button class="update">Update</button>
+                                <button class="cancel">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right">
+                        <div class="calendar-section" style="display: flex; gap: 1rem;">
+                      
+                            <input style="width: 100%;" type="date" id="dob" name="dob" value="2025-06-17" min="2020-01-01" max="2030-12-31" required>
+
+                            
+                        </div>
+                        <div class="quote-box">
+                            <div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-style: normal; margin-bottom: 1rem;">Efficiency Score: <span>70</span> </h3>
+                            <button class="update">Get Suggestion</button></div>
+                            <h3>🧠 <em>Motivation</em></h3>
+                            <p style="padding-bottom: 2rem;">“Take care of your body.<br>It’s the only place you have to live.”<br><strong>— Jim
+                                    Rohn</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    <!-- =================== HABIT TRACKER BODY END ====================== -->
+
+
+
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../js/DashboardHabitML.js"></script>
+</body>
+
+</html>
