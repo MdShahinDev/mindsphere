@@ -1,10 +1,60 @@
+<?php
+include("../config/db.php");
+
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// --- Fetch notification count ---
+$notification_count = 0;
+$query = "SELECT COUNT(*) as count FROM notification WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $notification_count = $row['count'];
+    }
+    $stmt->close();
+} else {
+    // Show clear error message
+    die("SQL Prepare failed (Notification Count): " . $conn->error);
+}
+
+// --- Fetch user name and location ---
+$user_name = "Guest";
+$user_location = "";
+
+$stmt = $conn->prepare("SELECT name, location FROM users WHERE user_id = ?");
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($row = $res->fetch_assoc()) {
+        $user_name = $row['name'];
+        $user_location = $row['location'];
+    }
+    $stmt->close();
+} else {
+    die("SQL Prepare failed (User Info): " . $conn->error);
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Profile</title>
+    <title>MindSphere - Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -22,13 +72,13 @@
             <div class="right-section">
                 <div class="notification">
                     <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
-                    <span class="badge">12</span>
+                    <span class="badge"><?= $notification_count ?></span>
                 </div>
 
                 <div class="profile-info">
                     <div class="avatar-info">
-                        <p class="name">Vladimir Putin</p>
-                        <p class="location">Moscow, Russia</p>
+                        <p class="name"><?= htmlspecialchars($user_name) ?></p>
+                        <p class="location"><?= htmlspecialchars($user_location) ?></p>
                     </div>
                     <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
                 </div>
@@ -39,7 +89,7 @@
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
@@ -98,12 +148,12 @@
             <div class="dashboard">
                 <div class="header2">
                     <div>
-                        <h1>Good Morning, Putin</h1>
+                        <h1>Good morning, <?= htmlspecialchars($user_name) ?></h1>
                         <p class="subtitle">12 hrs 44 mins till bedtime</p>
                     </div>
                     <div class="datetime">
-                        <h2 id="dayName">Thursday</h2>
-                        <p id="fullDate">May 22, 2025 | 10:00 AM</p>
+                      <h2 id="dayName">Loading...</h2>
+                      <p id="fullDate">Loading date and time...</p>
                     </div>
                 </div>
 
@@ -168,6 +218,34 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../js/DashboardHabitML.js"></script>
+    <script>
+      function updateDateTime() {
+          const now = new Date();
+
+          const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          const dayName = dayNames[now.getDay()];
+
+          const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+          const month = monthNames[now.getMonth()];
+          const date = now.getDate();
+          const year = now.getFullYear();
+
+          let hours = now.getHours();
+          const minutes = now.getMinutes().toString().padStart(2, '0');
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12;
+
+          const fullDate = `${month} ${date}, ${year} | ${hours}:${minutes} ${ampm}`;
+
+          document.getElementById("dayName").textContent = dayName;
+          document.getElementById("fullDate").textContent = fullDate;
+      }
+
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+    </script>
+
 </body>
 
 </html>
