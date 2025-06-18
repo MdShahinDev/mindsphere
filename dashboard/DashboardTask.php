@@ -128,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
   <div class="page-body">
     <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
