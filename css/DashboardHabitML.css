@@ -63,6 +63,7 @@ input{
   font-weight: 500;
   flex: 1;
   margin: 0 10px;
+  text-align: center;
 }
 
 .tab.active {
@@ -78,7 +79,16 @@ input{
   padding: 25px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
-
+.tracker-row{
+  display: flex;
+  justify-content: space-between;
+}
+.tracker-row select {
+  margin-bottom: 1rem;
+}
+.tracker-row input{
+  margin-right: 20px;
+}
 .card-header {
   display: flex;
   justify-content: space-between;
