@@ -30,7 +30,7 @@
               <p class="name">Vladimir Putin</p>
               <p class="location">Moscow, Russia</p>
             </div>
-            <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+            <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
           </div>
         </div>
       </header>
@@ -39,7 +39,7 @@
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>

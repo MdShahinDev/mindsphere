@@ -29,7 +29,7 @@
                         <p class="name">Vladimir Putin</p>
                         <p class="location">Moscow, Russia</p>
                     </div>
-                    <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+                    <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
                 </div>
             </div>
         </header>
