@@ -1,10 +1,110 @@
+<?php
+include("../config/db.php");
+
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// --- Fetch notification count ---
+$notification_count = 0;
+$query = "SELECT COUNT(*) as count FROM notification WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $notification_count = $row['count'];
+    }
+    $stmt->close();
+} else {
+    // Show clear error message
+    die("SQL Prepare failed (Notification Count): " . $conn->error);
+}
+
+// --- Fetch user name and location ---
+$user_name = "Guest";
+$user_location = "";
+
+$stmt = $conn->prepare("SELECT name, location FROM users WHERE user_id = ?");
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($row = $res->fetch_assoc()) {
+        $user_name = $row['name'];
+        $user_location = $row['location'];
+    }
+    $stmt->close();
+} else {
+    die("SQL Prepare failed (User Info): " . $conn->error);
+}
+
+
+// ---- Determine current time period ----
+date_default_timezone_set("Asia/Dhaka"); // Adjust if needed
+$hour = (int)date("H");
+
+if ($hour >= 5 && $hour < 12) {
+    $time_period = 'morning';
+} elseif ($hour >= 12 && $hour < 16) {
+    $time_period = 'noon';
+} elseif ($hour >= 16 && $hour < 18) {
+    $time_period = 'afternoon';
+} elseif ($hour >= 18 && $hour < 20) {
+    $time_period = 'evening';
+} else {
+    $time_period = 'night';
+}
+
+// ---- Fetch a random quote from DB based on time period ----
+$quote_text = "Stay strong. Keep going.";
+$quote_author = "Unknown";
+
+$stmt = $conn->prepare("SELECT quote, author FROM motivational_quotes WHERE time_period = ? ORDER BY RAND() LIMIT 1");
+if ($stmt) {
+    $stmt->bind_param("s", $time_period);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $quote_text = $row['quote'];
+        $quote_author = $row['author'];
+    }
+    $stmt->close();
+}
+
+// ---- Fetch a second (different) quote for subtitle ----
+$subtitle_quote = "Let's make today count.";
+$subtitle_author = "Unknown";
+
+$stmt2 = $conn->prepare("SELECT quote, author FROM motivational_quotes WHERE time_period = ? ORDER BY RAND() LIMIT 1 OFFSET 1");
+if ($stmt2) {
+    $stmt2->bind_param("s", $time_period);
+    $stmt2->execute();
+    $result2 = $stmt2->get_result();
+    if ($row2 = $result2->fetch_assoc()) {
+        $subtitle_quote = $row2['quote'];
+        $subtitle_author = $row2['author'];
+    }
+    $stmt2->close();
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Profile</title>
+    <title>MindSphere - Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -22,15 +122,15 @@
             <div class="right-section">
                 <div class="notification">
                     <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
-                    <span class="badge">12</span>
+                    <span class="badge"><?= $notification_count ?></span>
                 </div>
 
                 <div class="profile-info">
                     <div class="avatar-info">
-                        <p class="name">Vladimir Putin</p>
-                        <p class="location">Moscow, Russia</p>
+                        <p class="name"><?= htmlspecialchars($user_name) ?></p>
+                        <p class="location"><?= htmlspecialchars($user_location) ?></p>
                     </div>
-                    <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+                    <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
                 </div>
             </div>
         </header>
@@ -39,7 +139,7 @@
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
@@ -98,12 +198,12 @@
             <div class="dashboard">
                 <div class="header2">
                     <div>
-                        <h1>Good Morning, Putin</h1>
-                        <p class="subtitle">12 hrs 44 mins till bedtime</p>
+                        <h1 id="greeting">Loading...</h1>
+                        <p class="subtitle"><?= htmlspecialchars($subtitle_quote) ?></p>
                     </div>
                     <div class="datetime">
-                        <h2 id="dayName">Thursday</h2>
-                        <p id="fullDate">May 22, 2025 | 10:00 AM</p>
+                      <h2 id="dayName">Loading...</h2>
+                      <p id="fullDate">Loading date and time...</p>
                     </div>
                 </div>
 
@@ -145,8 +245,9 @@
                             <div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-style: normal; margin-bottom: 1rem;">Efficiency Score: <span>70</span> </h3>
                             <button class="update">Get Suggestion</button></div>
                             <h3>🧠 <em>Motivation</em></h3>
-                            <p style="padding-bottom: 2rem;">“Take care of your body.<br>It’s the only place you have to live.”<br><strong>— Jim
-                                    Rohn</strong></p>
+                            <p style="padding-bottom: 2rem;">
+                                “<?= nl2br(htmlspecialchars($quote_text)) ?><br><strong>— <?= htmlspecialchars($quote_author) ?></strong>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -168,6 +269,64 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="../js/DashboardHabitML.js"></script>
+    <script>
+      function updateDateTime() {
+          const now = new Date();
+
+          const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          const dayName = dayNames[now.getDay()];
+
+          const monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+          const month = monthNames[now.getMonth()];
+          const date = now.getDate();
+          const year = now.getFullYear();
+
+          let hours = now.getHours();
+          const minutes = now.getMinutes().toString().padStart(2, '0');
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          hours = hours % 12 || 12;
+
+          const fullDate = `${month} ${date}, ${year} | ${hours}:${minutes} ${ampm}`;
+
+          document.getElementById("dayName").textContent = dayName;
+          document.getElementById("fullDate").textContent = fullDate;
+      }
+
+      updateDateTime();
+      setInterval(updateDateTime, 60000);
+    </script>
+
+    <script>
+      function getGreeting() {
+          const now = new Date();
+          const hour = now.getHours();
+          let greeting = "";
+
+          if (hour >= 5 && hour < 12) {
+              greeting = "Good morning,";
+          } else if (hour >= 12 && hour < 16) {
+              greeting = "Good noon,";
+          } else if (hour >= 16 && hour < 18) {
+              greeting = "Good afternoon,";
+          } else if (hour >= 18 && hour < 20) {
+              greeting = "Good evening,";
+          } else {
+              greeting = "Good night,";
+          }
+
+          return greeting;
+      }
+
+      function showGreeting(userName) {
+          const greetingText = `${getGreeting()} ${userName}`;
+          document.getElementById("greeting").textContent = greetingText;
+      }
+
+      const userName = <?= json_encode($user_name) ?>;
+      showGreeting(userName);
+    </script>
+
 </body>
 
 </html>
