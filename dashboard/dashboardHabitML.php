@@ -104,7 +104,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Habit tracker</title>
+    <title>Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
