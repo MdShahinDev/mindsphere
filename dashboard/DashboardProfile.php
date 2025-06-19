@@ -17,21 +17,49 @@ $user_profession = "";
 $user_avatar = "../img/profilePicture.png";
 
 $stmt = $conn->prepare("SELECT name, email, location, profession, avatar FROM users WHERE user_id = ?");
+
+// --- Fetch notification count ---
+$notification_count = 0;
+$query = "SELECT COUNT(*) as count FROM notification WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $notification_count = $row['count'];
+    }
+    $stmt->close();
+} else {
+    // Show clear error message
+    die("SQL Prepare failed (Notification Count): " . $conn->error);
+}
+
+// --- Fetch user name and location ---
+$user_name = "Guest";
+$user_location = "";
+
+$stmt = $conn->prepare("SELECT name, location FROM users WHERE user_id = ?");
 if ($stmt) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $res = $stmt->get_result();
     if ($row = $res->fetch_assoc()) {
         $user_name = $row['name'];
+
         $user_email = $row['email'];
         $user_location = $row['location'];
         $user_profession = $row['profession'];
         $user_avatar = $row['avatar'] ?: "../img/profilePicture.png";
+        $user_location = $row['location'];
+
     }
     $stmt->close();
 } else {
     die("SQL Prepare failed (User Info): " . $conn->error);
 }
+
 
 // --- Handle skill submission ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['skill_type'])) {
@@ -127,13 +155,15 @@ $res = $conn->query("SELECT skill_name, grade, assessed FROM professional_skill 
 if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
 ?>
 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="../css/DashboardProfile.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <!-- Font Awesome CDN Link -->
@@ -150,7 +180,7 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
             <div class="right-section">
                 <div class="notification">
                     <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
-                    <span class="badge">12</span>
+                    <span class="badge"><?= $notification_count ?></span>
                 </div>
 
                 <div class="profile-info">
@@ -159,6 +189,12 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
                         <p class="location"><?php echo htmlspecialchars($user_location); ?></p>
                     </div>
                     <img class="avatar" src="<?php echo htmlspecialchars($user_avatar); ?>" alt="Avatar" />
+
+                        <p class="name"><?= htmlspecialchars($user_name) ?></p>
+                        <p class="location"><?= htmlspecialchars($user_location) ?></p>
+                    </div>
+                    <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
+
                 </div>
             </div>
         </header>
@@ -167,49 +203,42 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
-              <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
             <li>
-              <a href="../dashboard/Dashboard.php" 
-                ><i class="fa-solid fa-border-all"></i>Dashboard</a
-              >
+                <a href="../dashboard/Dashboard.php" 
+                ><i class="fa-solid fa-border-all"></i>Dashboard</a>
             </li>
             <li>
-              <a href="../dashboard/DashboardTask.php"
-                ><i class="fa-solid fa-clipboard-check"></i>Task</a
-              >
+                <a href="../dashboard/DashboardTask.php"
+                ><i class="fa-solid fa-clipboard-check"></i>Task</a>
             </li>
             <li>
-              <a href="../dashboard/dashboardHabitML.php"
-                ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
-              >
+                <a href="../dashboard/dashboardHabitML.php"
+                ><i class="fa-solid fa-person-running"></i>Habit Tracker</a>
             </li>
             <li>
-              <a href="../dashboard/DashboardChat.php"
-                ><i class="fa-solid fa-comment"></i>Chat</a
-              >
+                <a href="../dashboard/DashboardChat.php"
+                ><i class="fa-solid fa-comment"></i>Chat</a>
             </li>
             <li>
-              <a href="../dashboard/DashboardResourceLibrary.php"
-                ><i class="fa-solid fa-book"></i>Resource Library</a
-              >
+                <a href="../dashboard/DashboardResourceLibrary.php"
+                ><i class="fa-solid fa-book"></i>Resource Library</a>
             </li>
             <li>
-              <a href="../dashboard/DashboardProfile.php" class="active"
-                ><i class="fa-solid fa-user"></i>Profile</a
-              >
+                <a href="../dashboard/DashboardProfile.php" class="active"
+                ><i class="fa-solid fa-user"></i>Profile</a>
             </li>
             <!-- <li>
-              <a href="../dashboard/DashboardSetting.php"
-                ><i class="fa-solid fa-gear"></i>Setting</a
-              >
+                <a href="../dashboard/DashboardSetting.php"
+                ><i class="fa-solid fa-gear"></i>Setting</a>
             </li> -->
             <li>
-              <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
+                <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
             </li>
-          </ul>
+            </ul>
                 <div class="dashboard-help-card">
                     <div class="card">
                         <p class="question-icon"><span>?</span></p>

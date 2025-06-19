@@ -104,7 +104,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Habit tracker</title>
+    <title>MindSphere - Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -212,9 +212,9 @@ if ($stmt2) {
                     <div class="left">
                         <div class="tabs-card">
                             <div class="health_tabs">
-                                <a href="../dashboard/dashboardHabitML.php" class="tab active" >Health</a>
+                                <a href="../dashboard/dashboardHabitML.php" class="tab" >Health</a>
                                 <a href="../dashboard/dashboardHabitMLWellness.php" class="tab" >Wellness</a>
-                                <a href="../dashboard/dashboardHabitMLProductivity.php" class="tab" >Productivity</a>
+                                <a href="../dashboard/dashboardHabitMLProductivity.php" class="tab  active" >Productivity</a>
                                 <a href="../dashboard/dashboardHabitMLLearning.php" class="tab" >Learning</a>
                             </div>
                         </div>
@@ -227,52 +227,62 @@ if ($stmt2) {
                            
                                 
 
-    <div class="tracker-row">
-      <label><input type="checkbox" name="water">Drink Water</label>
+   <div class="tracker-row">
+      <label><input type="checkbox" name="work_hours">Work Hours</label>
       <select>
-        <option>100ml</option>
-        <option>250ml</option>
-        <option>500ml</option>
-        <option>1L</option>
-        <option>2L</option>
-        <option>3L</option>
-      </select>
-    </div>
-
-    <div class="tracker-row">
-      <label><input type="checkbox" name="exercise">Exercise</label>
-      <select>
-        <option>10 mins</option>
-        <option>30 mins</option>
-        <option>1 hour</option>
-      </select>
-    </div>
-
-    <div class="tracker-row">
-      <label><input type="checkbox" name="sleep">Sound Sleep</label>
-      <select>
-        <option>Less than 6 hrs</option>
+        <option>Less than 4 hrs</option>
+        <option>4-6 hrs</option>
         <option>6-8 hrs</option>
         <option>More than 8 hrs</option>
+      </select>
+    </div>
+
+    <div class="tracker-row">
+      <label><input type="checkbox" name="social_media_usage">Social Media Usage</label>
+      <select>
+        <option>0 Min</option>
+        <option>15 min</option>
+        <option>1 hr</option>
+        <option>1 hr</option>
+        <option>Overused+</option>
+      </select>
+    </div>
+
+    <div class="tracker-row">
+      <label><input type="checkbox" name="task_done">Tasks Done</label>
+      <select>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5+</option>
         
       </select>
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="blood_pressure">Blood Pressure</label>
+      <label><input type="checkbox" name="blood_pressure">Pomodoro Session</label>
       <select>
-        <option>Normal</option>
-        <option>Elevated</option>
-        <option>High</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+        <option>10+</option>
       </select>
     </div>
     <div class="tracker-row">
-      <label><input type="checkbox" name="meal">Meal</label>
+      <label><input type="checkbox" name="meal">Break Time</label>
       <select>
-        <option>Skipped</option>
-        <option>1 meal</option>
-        <option>2 meals</option>
-        <option>3 meals</option>
+        <option>Short</option>
+        <option>Medium</option>
+        <option>Long</option>
+        
       </select>
     </div>
                             

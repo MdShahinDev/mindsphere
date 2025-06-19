@@ -104,7 +104,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Habit tracker</title>
+    <title>MindSphere - Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -212,8 +212,8 @@ if ($stmt2) {
                     <div class="left">
                         <div class="tabs-card">
                             <div class="health_tabs">
-                                <a href="../dashboard/dashboardHabitML.php" class="tab active" >Health</a>
-                                <a href="../dashboard/dashboardHabitMLWellness.php" class="tab" >Wellness</a>
+                                <a href="../dashboard/dashboardHabitML.php" class="tab" >Health</a>
+                                <a href="../dashboard/dashboardHabitMLWellness.php" class="tab  active" >Wellness</a>
                                 <a href="../dashboard/dashboardHabitMLProductivity.php" class="tab" >Productivity</a>
                                 <a href="../dashboard/dashboardHabitMLLearning.php" class="tab" >Learning</a>
                             </div>
@@ -228,51 +228,46 @@ if ($stmt2) {
                                 
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="water">Drink Water</label>
+      <label><input type="checkbox" name="water">Meditation</label>
       <select>
-        <option>100ml</option>
-        <option>250ml</option>
-        <option>500ml</option>
-        <option>1L</option>
-        <option>2L</option>
-        <option>3L</option>
-      </select>
-    </div>
-
-    <div class="tracker-row">
-      <label><input type="checkbox" name="exercise">Exercise</label>
-      <select>
-        <option>10 mins</option>
+        <option>5 mins</option>
+        <option>15 mins</option>
         <option>30 mins</option>
-        <option>1 hour</option>
-      </select>
-    </div>
-
-    <div class="tracker-row">
-      <label><input type="checkbox" name="sleep">Sound Sleep</label>
-      <select>
-        <option>Less than 6 hrs</option>
-        <option>6-8 hrs</option>
-        <option>More than 8 hrs</option>
         
       </select>
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="blood_pressure">Blood Pressure</label>
+      <label><input type="checkbox" name="exercise">Journaling</label>
       <select>
-        <option>Normal</option>
-        <option>Elevated</option>
-        <option>High</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+    </div>
+
+    <div class="tracker-row">
+      <label><input type="checkbox" name="sleep">Gratitude</label>
+      <select>
+        <option>Noted</option>
+        <option>Skipped</option>      
+      </select>
+    </div>
+
+    <div class="tracker-row">
+      <label><input type="checkbox" name="blood_pressure">Mood Checkin</label>
+      <select>
+        <option>Happy</option>
+        <option>Stressed</option>
+        <option>Anxious</option>
       </select>
     </div>
     <div class="tracker-row">
-      <label><input type="checkbox" name="meal">Meal</label>
+      <label><input type="checkbox" name="meal">Calm Breathing</label>
       <select>
-        <option>Skipped</option>
-        <option>1 meal</option>
-        <option>2 meals</option>
-        <option>3 meals</option>
+        <option>3 mins</option>
+        <option>5 mins</option>
+        <option>Not done</option>
+        
       </select>
     </div>
                             

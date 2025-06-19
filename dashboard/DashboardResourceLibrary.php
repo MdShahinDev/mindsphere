@@ -1,9 +1,59 @@
+<?php
+include("../config/db.php");
+
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+// --- Fetch notification count ---
+$notification_count = 0;
+$query = "SELECT COUNT(*) as count FROM notification WHERE user_id = ?";
+$stmt = $conn->prepare($query);
+
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $notification_count = $row['count'];
+    }
+    $stmt->close();
+} else {
+    // Show clear error message
+    die("SQL Prepare failed (Notification Count): " . $conn->error);
+}
+
+// --- Fetch user name and location ---
+$user_name = "Guest";
+$user_location = "";
+
+$stmt = $conn->prepare("SELECT name, location FROM users WHERE user_id = ?");
+if ($stmt) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    if ($row = $res->fetch_assoc()) {
+        $user_name = $row['name'];
+        $user_location = $row['location'];
+    }
+    $stmt->close();
+} else {
+    die("SQL Prepare failed (User Info): " . $conn->error);
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere Chat</title>
+    <title>Resource Library</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardResourceLibrary.css" />
     <!-- Font Awesome CDN Link -->
@@ -22,15 +72,15 @@
         <div class="right-section">
           <div class="notification">
             <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
-            <span class="badge">12</span>
+            <span class="badge"><?= $notification_count ?></span>
           </div>
 
           <div class="profile-info">
             <div class="avatar-info">
-              <p class="name">Vladimir Putin</p>
-              <p class="location">Moscow, Russia</p>
+              <p class="name"><?= htmlspecialchars($user_name) ?></p>
+              <p class="location"><?= htmlspecialchars($user_location) ?></p>
             </div>
-            <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+            <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
           </div>
         </div>
       </header>
@@ -39,7 +89,7 @@
     <div class="page-body">
         <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>

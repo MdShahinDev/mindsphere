@@ -83,7 +83,7 @@ if ($stmt) {
               <p class="name"><?= htmlspecialchars($user_name) ?></p>
               <p class="location"><?= htmlspecialchars($user_location) ?></p>
             </div>
-            <img class="avatar" src="../img/profilePicture.png" alt="Avatar" />
+            <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
           </div>
         </div>
       </header>
@@ -91,7 +91,7 @@ if ($stmt) {
     <div class="page-body">
       <div class="dashboard-sidebar">
             <div class="dashboard-menu">
-                 <ul class="dashboard-menu-item">
+                <ul class="dashboard-menu-item">
             <li>
               <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
             </li>
