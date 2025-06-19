@@ -31,14 +31,18 @@ if ($stmt) {
 $user_name = "Guest";
 $user_location = "";
 
-$stmt = $conn->prepare("SELECT name, location FROM users WHERE user_id = ?");
+$stmt = $conn->prepare("SELECT name, email, location, profession, avatar FROM users WHERE user_id = ?");
 if ($stmt) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $res = $stmt->get_result();
     if ($row = $res->fetch_assoc()) {
         $user_name = $row['name'];
+        $user_email = $row['email'];
         $user_location = $row['location'];
+        $user_profession = $row['profession'];
+        $user_avatar = $row['avatar'] ?: "../img/profilePicture.png";
+
     }
     $stmt->close();
 } else {
@@ -80,7 +84,7 @@ if ($stmt) {
               <p class="name"><?= htmlspecialchars($user_name) ?></p>
               <p class="location"><?= htmlspecialchars($user_location) ?></p>
             </div>
-            <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="../img/profilePicture.png" alt="Avatar" /></a>
+            <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="<?php echo htmlspecialchars($user_avatar); ?>" alt="Avatar" /></a>
           </div>
         </div>
       </header>
