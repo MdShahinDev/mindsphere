@@ -324,6 +324,14 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
             </div>
 
             <!-- Professional Skill Section -->
+
+            <div class="skill-section">
+                    <div class="section-header">
+                        <h2>Professional Skill</h2>
+                        <div>
+                            <button class="icon-btn" onclick="openModal('personal')"><i
+                                    class="fa-solid fa-plus"></i></button>
+
              <div class="skill-section">
     <div class="section-header">
         <h2>Professional Skill</h2>
@@ -352,6 +360,7 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
         <?php endforeach; ?>
     </div>
 </div>
+
 
 
 

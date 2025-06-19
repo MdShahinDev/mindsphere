@@ -1,4 +1,56 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include("../config/db.php");
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $date = $_POST['dob'] ?? date("Y-m-d");
+
+    // Map: wellness name => value => score
+    $wellnessScoring = [
+        'meditation' => ['5 mins'=>2, '15 mins'=>3, '30 mins'=>5],
+        'journaling' => ['Yes'=>5, 'No'=>0],
+        'gratitude' => ['Noted'=>5, 'Skipped'=>0],
+        'mood_checkin' => ['Happy'=>5, 'Stressed'=>3, 'Anxious'=>1],
+        'clam_breathing' => ['3 mins'=>3, '5 mins'=>5, 'Not done'=>0]
+    ];
+
+    $inserted = false;
+
+    foreach ($wellnessScoring as $habitName => $valueMap) {
+        if (isset($_POST[$habitName])) {
+            $valueKey = $habitName . '_value';
+            $habit_value_text = $_POST[$valueKey] ?? null;
+            $habit_value_score = $valueMap[$habit_value_text] ?? null;
+
+            if ($habit_value_text !== null && $habit_value_score !== null) {
+                $stmt = $conn->prepare("INSERT INTO habit_log (user_id, date, habit_category, habit_name, habit_value_text, habit_value_score) VALUES (?, ?, 'wellness', ?, ?, ?)");
+                $stmt->bind_param("isssi", $user_id, $date, $habitName, $habit_value_text, $habit_value_score);
+                $stmt->execute();
+                $stmt->close();
+                $inserted = true;
+            }
+        }
+    }
+
+    if ($inserted) {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=1");
+    } else {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=0");
+    }
+    exit();
+}
+?>
+
+
+
+
+<?php
 include("../config/db.php");
 
 session_start();
@@ -108,7 +160,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Habit tracker</title>
+    <title>Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -211,7 +263,10 @@ if ($stmt2) {
                     </div>
                 </div>
 
-              <form>
+              <form method="POST" action="">
+                <?php if (isset($_GET['success'])): ?>
+                  <p style="color: green; font-weight: bold;">✅ Wellness updated successfully!</p>
+                <?php endif; ?>
                 <div class="main">
                     <div class="left">
                         <div class="tabs-card">
@@ -228,12 +283,12 @@ if ($stmt2) {
                                 <span>Habit Checklist</span>
                                 <span>Habit Path</span>
                             </div>
-                           
+
                                 
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="water">Meditation</label>
-      <select>
+      <label><input type="checkbox" name="meditation">Meditation</label>
+      <select name="meditation_value">
         <option>5 mins</option>
         <option>15 mins</option>
         <option>30 mins</option>
@@ -242,32 +297,32 @@ if ($stmt2) {
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="exercise">Journaling</label>
-      <select>
+      <label><input type="checkbox" name="journaling">Journaling</label>
+      <select name="journaling_value">
         <option>Yes</option>
         <option>No</option>
       </select>
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="sleep">Gratitude</label>
-      <select>
+      <label><input type="checkbox" name="gratitude">Gratitude</label>
+      <select name="gratitude_value">
         <option>Noted</option>
         <option>Skipped</option>      
       </select>
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="blood_pressure">Mood Checkin</label>
-      <select>
+      <label><input type="checkbox" name="mood_checkin">Mood Checkin</label>
+      <select name="mood_checkin_value">
         <option>Happy</option>
         <option>Stressed</option>
         <option>Anxious</option>
       </select>
     </div>
     <div class="tracker-row">
-      <label><input type="checkbox" name="meal">Calm Breathing</label>
-      <select>
+      <label><input type="checkbox" name="clam_breathing">Calm Breathing</label>
+      <select name="clam_breathing_value">
         <option>3 mins</option>
         <option>5 mins</option>
         <option>Not done</option>
