@@ -231,7 +231,7 @@ if ($stmt) {
             </div>
 
             <!-- Professional Skill Section -->
-             <div class="skill-section">
+            <div class="skill-section">
                     <div class="section-header">
                         <h2>Professional Skill</h2>
                         <div>

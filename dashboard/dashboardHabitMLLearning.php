@@ -1,4 +1,56 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include("../config/db.php");
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $date = $_POST['dob'] ?? date("Y-m-d");
+
+    // Map: Learning name => value => score
+    $learningScoring = [
+        'reading' => ['None'=>1, '15 mins'=>3, '30 mins'=>5],
+        'course' => ['Not Started'=>0, 'In Progress'=>3, 'Completed'=>3],
+        'smart_recall' => ['Anki Done'=>5, 'Quiz'=>4, '10 flashcards'=>3],
+        'new_skill' => ['Watched'=>2, 'Practiced'=>3, 'Mastered'=>5],
+        'learn_and_log' => ['Notes Taken'=>5, 'Logged'=>3, 'Skipped'=>0]
+    ];
+
+    $inserted = false;
+
+    foreach ($learningScoring as $habitName => $valueMap) {
+        if (isset($_POST[$habitName])) {
+            $valueKey = $habitName . '_value';
+            $habit_value_text = $_POST[$valueKey] ?? null;
+            $habit_value_score = $valueMap[$habit_value_text] ?? null;
+
+            if ($habit_value_text !== null && $habit_value_score !== null) {
+                $stmt = $conn->prepare("INSERT INTO habit_log (user_id, date, habit_category, habit_name, habit_value_text, habit_value_score) VALUES (?, ?, 'learning', ?, ?, ?)");
+                $stmt->bind_param("isssi", $user_id, $date, $habitName, $habit_value_text, $habit_value_score);
+                $stmt->execute();
+                $stmt->close();
+                $inserted = true;
+            }
+        }
+    }
+
+    if ($inserted) {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=1");
+    } else {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=0");
+    }
+    exit();
+}
+?>
+
+
+
+
+<?php
 include("../config/db.php");
 
 session_start();
@@ -104,7 +156,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Habit tracker</title>
+    <title>Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -207,7 +259,10 @@ if ($stmt2) {
                     </div>
                 </div>
 
-              <form>
+              <form method="POST" action="">
+                <?php if (isset($_GET['success'])): ?>
+                  <p style="color: green; font-weight: bold;">✅ Learning updated successfully!</p>
+                <?php endif; ?>
                 <div class="main">
                     <div class="left">
                         <div class="tabs-card">
@@ -224,12 +279,12 @@ if ($stmt2) {
                                 <span>Habit Checklist</span>
                                 <span>Habit Path</span>
                             </div>
-                           
+                            
                                 
 
     <div class="tracker-row">
       <label><input type="checkbox" name="reading">Reading</label>
-      <select>
+      <select name="reading_value">
         <option>None</option>
         <option>15 mins</option>
         <option>30 mins</option>
@@ -238,7 +293,7 @@ if ($stmt2) {
 
     <div class="tracker-row">
       <label><input type="checkbox" name="course">Course</label>
-      <select>
+      <select name="course_value">
         <option>Not Started</option>
         <option>In Progress</option>
         <option>Completed</option>
@@ -246,8 +301,8 @@ if ($stmt2) {
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="recall">Smart Recall</label>
-      <select>
+      <label><input type="checkbox" name="smart_recall">Smart Recall</label>
+      <select name="smart_recall_value">
         <option>Anki Done</option>
         <option>Quiz</option>
         <option>10 flashcards</option>
@@ -257,15 +312,15 @@ if ($stmt2) {
 
     <div class="tracker-row">
       <label><input type="checkbox" name="new_skill">New Skill</label>
-      <select>
+      <select name="new_skill_value">
         <option>Watched</option>
         <option>Practiced</option>
         <option>Mastered</option>
       </select>
     </div>
     <div class="tracker-row">
-      <label><input type="checkbox" name="meal">Learn & Log</label>
-      <select>
+      <label><input type="checkbox" name="learn_and_log">Learn & Log</label>
+      <select name="learn_and_log_value">
         <option>Notes Taken</option>
         <option>Logged</option>
         <option>Skipped</option>

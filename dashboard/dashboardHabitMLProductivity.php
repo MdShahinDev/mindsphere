@@ -1,4 +1,55 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include("../config/db.php");
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $date = $_POST['dob'] ?? date("Y-m-d");
+
+    // Map: Productivity name => value => score
+    $productivityScoring = [
+        'work_hours' => ['Less than 4 hrs'=>2, '4-6 hrs'=>3, '6-8 hrs'=>4, 'More than 8 hrs'=>5],
+        'social_media_usage' => ['0 Min'=>5, '15 min'=>4, '1 hr'=>3, '2 hr'=>2, 'Overused+'=>0],
+        'task_done' => ['1'=>1, '2'=>2, '3'=>3, '4'=>4, '5+'=>5],
+        'pomodoro_session' => ['1'=>1, '2'=>1, '3'=>2, '4'=>2, '5'=>3, '6'=>3, '7'=>3, '8'=>4, '9'=>4, '10'=>5, '10+'=>5],
+        'break_time' => ['Short'=>5, 'Medium'=>3, 'Long'=>1]
+    ];
+
+    $inserted = false;
+
+    foreach ($productivityScoring as $habitName => $valueMap) {
+        if (isset($_POST[$habitName])) {
+            $valueKey = $habitName . '_value';
+            $habit_value_text = $_POST[$valueKey] ?? null;
+            $habit_value_score = $valueMap[$habit_value_text] ?? null;
+
+            if ($habit_value_text !== null && $habit_value_score !== null) {
+                $stmt = $conn->prepare("INSERT INTO habit_log (user_id, date, habit_category, habit_name, habit_value_text, habit_value_score) VALUES (?, ?, 'productivity', ?, ?, ?)");
+                $stmt->bind_param("isssi", $user_id, $date, $habitName, $habit_value_text, $habit_value_score);
+                $stmt->execute();
+                $stmt->close();
+                $inserted = true;
+            }
+        }
+    }
+
+    if ($inserted) {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=1");
+    } else {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=0");
+    }
+    exit();
+}
+?>
+
+
+
+<?php
 include("../config/db.php");
 
 session_start();
@@ -104,7 +155,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MindSphere - Habit tracker</title>
+    <title>Habit tracker</title>
     
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
@@ -207,7 +258,10 @@ if ($stmt2) {
                     </div>
                 </div>
 
-              <form>
+              <form method="POST" action="">
+                <?php if (isset($_GET['success'])): ?>
+                  <p style="color: green; font-weight: bold;">✅ Productivity updated successfully!</p>
+                <?php endif; ?>
                 <div class="main">
                     <div class="left">
                         <div class="tabs-card">
@@ -224,12 +278,12 @@ if ($stmt2) {
                                 <span>Habit Checklist</span>
                                 <span>Habit Path</span>
                             </div>
-                           
+
                                 
 
-   <div class="tracker-row">
+    <div class="tracker-row">
       <label><input type="checkbox" name="work_hours">Work Hours</label>
-      <select>
+      <select name="work_hours_value">
         <option>Less than 4 hrs</option>
         <option>4-6 hrs</option>
         <option>6-8 hrs</option>
@@ -239,18 +293,18 @@ if ($stmt2) {
 
     <div class="tracker-row">
       <label><input type="checkbox" name="social_media_usage">Social Media Usage</label>
-      <select>
+      <select name="social_media_usage_value">
         <option>0 Min</option>
         <option>15 min</option>
         <option>1 hr</option>
-        <option>1 hr</option>
+        <option>2 hr</option>
         <option>Overused+</option>
       </select>
     </div>
 
     <div class="tracker-row">
       <label><input type="checkbox" name="task_done">Tasks Done</label>
-      <select>
+      <select name="task_done_value">
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -261,8 +315,8 @@ if ($stmt2) {
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="blood_pressure">Pomodoro Session</label>
-      <select>
+      <label><input type="checkbox" name="pomodoro_session">Pomodoro Session</label>
+      <select name="pomodoro_session_value">
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -277,8 +331,8 @@ if ($stmt2) {
       </select>
     </div>
     <div class="tracker-row">
-      <label><input type="checkbox" name="meal">Break Time</label>
-      <select>
+      <label><input type="checkbox" name="break_time">Break Time</label>
+      <select name="break_time_value">
         <option>Short</option>
         <option>Medium</option>
         <option>Long</option>

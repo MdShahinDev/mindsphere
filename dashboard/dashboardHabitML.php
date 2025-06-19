@@ -1,4 +1,54 @@
 <?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include("../config/db.php");
+    session_start();
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: ../login.php");
+        exit();
+    }
+
+    $user_id = $_SESSION['user_id'];
+    $date = $_POST['dob'] ?? date("Y-m-d");
+
+    // Map: habit name => value => score
+    $habitScoring = [
+        'drink_water' => ['100ml'=>1, '250ml'=>2, '500ml'=>3, '1L'=>4, '2L'=>5, '3L'=>5],
+        'exercise' => ['10 mins'=>2, '30 mins'=>4, '1 hour'=>5],
+        'sound_sleep' => ['Less than 6 hrs'=>2, '6-8 hrs'=>4, 'More than 8 hrs'=>5],
+        'blood_pressure' => ['Normal'=>5, 'Elevated'=>3, 'High'=>1],
+        'meal' => ['Skipped'=>0, '1 meal'=>2, '2 meals'=>4, '3 meals'=>5]
+    ];
+
+    $inserted = false;
+
+    foreach ($habitScoring as $habitName => $valueMap) {
+        if (isset($_POST[$habitName])) {
+            $valueKey = $habitName . '_value';
+            $habit_value_text = $_POST[$valueKey] ?? null;
+            $habit_value_score = $valueMap[$habit_value_text] ?? null;
+
+            if ($habit_value_text !== null && $habit_value_score !== null) {
+                $stmt = $conn->prepare("INSERT INTO habit_log (user_id, date, habit_category, habit_name, habit_value_text, habit_value_score) VALUES (?, ?, 'health', ?, ?, ?)");
+                $stmt->bind_param("isssi", $user_id, $date, $habitName, $habit_value_text, $habit_value_score);
+                $stmt->execute();
+                $stmt->close();
+                $inserted = true;
+            }
+        }
+    }
+
+    if ($inserted) {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=1");
+    } else {
+        header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=0");
+    }
+    exit();
+}
+?>
+
+
+<?php
 include("../config/db.php");
 
 session_start();
@@ -207,7 +257,10 @@ if ($stmt2) {
                     </div>
                 </div>
 
-              <form>
+              <form method="POST" action="">
+                <?php if (isset($_GET['success'])): ?>
+                  <p style="color: green; font-weight: bold;">✅ Habit updated successfully!</p>
+                <?php endif; ?>
                 <div class="main">
                     <div class="left">
                         <div class="tabs-card">
@@ -224,12 +277,12 @@ if ($stmt2) {
                                 <span>Habit Checklist</span>
                                 <span>Habit Path</span>
                             </div>
-                           
+                            
                                 
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="water">Drink Water</label>
-      <select>
+      <label><input type="checkbox" name="drink_water">Drink Water</label>
+      <select name="drink_water_value">
         <option>100ml</option>
         <option>250ml</option>
         <option>500ml</option>
@@ -241,7 +294,7 @@ if ($stmt2) {
 
     <div class="tracker-row">
       <label><input type="checkbox" name="exercise">Exercise</label>
-      <select>
+      <select name="exercise_value">
         <option>10 mins</option>
         <option>30 mins</option>
         <option>1 hour</option>
@@ -249,8 +302,8 @@ if ($stmt2) {
     </div>
 
     <div class="tracker-row">
-      <label><input type="checkbox" name="sleep">Sound Sleep</label>
-      <select>
+      <label><input type="checkbox" name="sound_sleep">Sound Sleep</label>
+      <select name="sound_sleep_value">
         <option>Less than 6 hrs</option>
         <option>6-8 hrs</option>
         <option>More than 8 hrs</option>
@@ -260,7 +313,7 @@ if ($stmt2) {
 
     <div class="tracker-row">
       <label><input type="checkbox" name="blood_pressure">Blood Pressure</label>
-      <select>
+      <select name="blood_pressure_value">
         <option>Normal</option>
         <option>Elevated</option>
         <option>High</option>
@@ -268,7 +321,7 @@ if ($stmt2) {
     </div>
     <div class="tracker-row">
       <label><input type="checkbox" name="meal">Meal</label>
-      <select>
+      <select name="meal_value">
         <option>Skipped</option>
         <option>1 meal</option>
         <option>2 meals</option>
