@@ -112,85 +112,86 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 
 
+document.addEventListener('DOMContentLoaded', () => {
+  const popupOverlay = document.getElementById('pomodoro-overlay');
+  const openBtn = document.querySelector('.pomodoro-open-btn');
+  const closeBtn = document.getElementById('pomodoro-close');
+  const settingsBtn = document.getElementById('pomodoro-settings');
+  const timerSettings = document.getElementById('timer-settings');
+  const timerArea = document.getElementById('timer-area');
+  const settingsIcon = document.getElementById('settings-icon');
+  const startBtn = document.getElementById('start-timer');
+  const timerDisplay = document.getElementById('timer-display');
+  const tabs = document.querySelectorAll('.tab');
+  const alarm = document.getElementById('alarm-audio');
+  let timer;
+  let currentMode = 'pomodoro';
+  let remainingTime = 0;
 
-const openBtn = document.getElementById('openPopup');
-const closeBtn = document.getElementById('closePopup');
-const overlay = document.getElementById('popupOverlay');
-const timerDisplay = document.getElementById('timer');
-const tabButtons = document.querySelectorAll('.tab');
-const startBtn = document.getElementById('startBtn');
+  const getTimeForMode = () => {
+    const pomodoro = parseInt(document.getElementById('pomodoro-time').value, 10);
+    const short = parseInt(document.getElementById('short-time').value, 10);
+    const long = parseInt(document.getElementById('long-time').value, 10);
+    return currentMode === 'pomodoro' ? pomodoro : currentMode === 'short' ? short : long;
+  };
 
-let selectedTime = 1500; // default 25 mins in seconds
-let timerInterval = null;
-let timeRemaining = selectedTime;
+  const updateDisplay = (seconds) => {
+    const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+    const secs = String(seconds % 60).padStart(2, '0');
+    timerDisplay.textContent = `${mins}:${secs}`;
+  };
 
-openBtn.addEventListener('click', () => {
-  overlay.style.display = 'flex';
-  resetTimer();
-});
+  const startCountdown = () => {
+    clearInterval(timer);
+    remainingTime = getTimeForMode() * 60;
+    updateDisplay(remainingTime);
+    timer = setInterval(() => {
+      remainingTime--;
+      updateDisplay(remainingTime);
+      if (remainingTime <= 0) {
+        clearInterval(timer);
+        alarm.play();
+      }
+    }, 1000);
+  };
 
-closeBtn.addEventListener('click', () => {
-  overlay.style.display = 'none';
-  stopTimer();
-});
+  openBtn.addEventListener('click', () => {
+    popupOverlay.classList.remove('hidden');
+    popupOverlay.style.display = 'flex';
+    currentMode = 'pomodoro';
+    updateDisplay(getTimeForMode() * 60);
+    tabs.forEach(tab => tab.classList.remove('active'));
+    tabs[0].classList.add('active');
+  });
 
-tabButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Remove active class from all tabs
-    tabButtons.forEach(b => b.classList.remove('active'));
-    // Add active class to clicked tab
-    btn.classList.add('active');
+  closeBtn.addEventListener('click', () => {
+    popupOverlay.classList.add('hidden');
+    popupOverlay.style.display = 'none';
+    clearInterval(timer);
+  });
 
-    // Update selected time and reset timer
-    selectedTime = parseInt(btn.dataset.time);
-    resetTimer();
+  settingsBtn.addEventListener('click', () => {
+    const isSettingsVisible = timerSettings.classList.toggle('hidden') === false;
+    timerArea.classList.toggle('hidden');
+    startBtn.style.display = isSettingsVisible ? 'none' : 'inline-block';
+    settingsIcon.classList.toggle('fa-ellipsis-vertical', !isSettingsVisible);
+    settingsIcon.classList.toggle('fa-xmark', isSettingsVisible);
+  });
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentMode = tab.dataset.mode;
+      updateDisplay(getTimeForMode() * 60);
+      clearInterval(timer);
+    });
+  });
+
+  startBtn.addEventListener('click', () => {
+    startCountdown();
   });
 });
-
-startBtn.addEventListener('click', () => {
-  if (timerInterval) {
-    stopTimer();
-    startBtn.textContent = 'Start';
-  } else {
-    startTimer();
-    startBtn.textContent = 'Pause';
-  }
-});
-
-function updateTimerDisplay(seconds) {
-  const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
-  const secs = String(seconds % 60).padStart(2, '0');
-  timerDisplay.textContent = `${mins}:${secs}:00`;
-}
-
-function startTimer() {
-  if (timerInterval) return; // prevent multiple intervals
-
-  timerInterval = setInterval(() => {
-    if (timeRemaining <= 0) {
-      stopTimer();
-      alert('Time is up!');
-      return;
-    }
-    timeRemaining--;
-    updateTimerDisplay(timeRemaining);
-  }, 1000);
-}
-
-function stopTimer() {
-  clearInterval(timerInterval);
-  timerInterval = null;
-}
-
-function resetTimer() {
-  stopTimer();
-  timeRemaining = selectedTime;
-  updateTimerDisplay(timeRemaining);
-  startBtn.textContent = 'Start';
-}
-
-// Initialize timer display
-updateTimerDisplay(selectedTime);
 
 
 

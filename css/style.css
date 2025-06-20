@@ -1255,102 +1255,111 @@ section.hero {
 /* ===================== POMODORO POPUP START ============================ */
 
 
-
-
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(8px);
-  background-color: rgba(0, 0, 0, 0.4);
+.hidden {
   display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
 }
 
-.popup {
+#pomodoro-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.pomodoro-popup {
   background: white;
-  border-radius: 15px;
-  padding: 2rem;
+  padding: 30px;
+  border-radius: 16px;
   width: 600px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   position: relative;
   text-align: center;
 }
 
-.popup-header {
-  display: flex;
-  justify-content: flex-end;
-}
-
 .close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
+  position: absolute;
+  right: 20px;
+  top: 20px;
   cursor: pointer;
 }
 
-.tabs {
+.tab-buttons {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 1rem;
   background: #eee;
-  border-radius: 25px;
-  padding: 5px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  padding: 6px;
 }
 
 .tab {
-  background: none;
+  padding: 10px 20px;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
+  background: transparent;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-.tab:hover {
-  background-color: #ddd;
 }
 
 .tab.active {
-  background: white;
-  border: 2px solid var(--primary-color);
-  font-weight: bold;
-  color: var(--primary-color);
+  background: orange;
+  color: white;
+}
+
+.timer-config label {
+  display: block;
+  margin: 10px 0;
 }
 
 .timer-circle {
-  border: 8px solid orange;
+  border: 5px solid orange;
   border-radius: 50%;
-  padding: 2rem;
-  margin: 1rem auto;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+  margin: 20px auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff0e5;
+  background: #fff3e0;
 }
 
-.timer-circle h1 {
-  font-size: 2.5rem;
-  margin: 0;
+.timer-display {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-.start-btn {
-  padding: 0.75rem 2rem;
+#start-timer {
+  padding: 10px 20px;
   background: orange;
-  border: none;
   color: white;
-  font-size: 1rem;
-  border-radius: 5px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 
+.settings-btn {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+#timer-settings {
+  transition: all 0.3s ease;
+}
+#timer-area {
+  transition: all 0.3s ease;
+}
+.settings-btn i {
+  font-size: 20px;
+}
+.pomodoro-popup {
+	min-height: 375px;
+}
 
 
 /* ===================== POMODORO POPUP END ============================ */

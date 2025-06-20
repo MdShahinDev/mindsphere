@@ -101,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Task</title>
   <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/DashboardTaskNew.css" />
   <!-- Font Awesome CDN Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -189,18 +188,64 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
             </div>
         </div>
     <div class="dashboard-content">
-      
-      <div class="nav">
-        <div class="nav-links">
-        <a href="../dashboard/DashboardTask.php" class="active">Today</a>
-        <a href="../dashboard/DashboardAllTask.php">All Tasks</a>
-        <a href="../dashboard/DashboardTaskCompleted.php">Completed</a>
-      </div>
-      <div class="nav-btn">
-          <button class="navBtn" id="ms-openPopupBtn">Add Task <i class="fa-solid fa-plus"></i></button>
-      </div>
-      </div>
+      <div class="date-header">
+        <div class="date-time">
+          <h3>Today</h3>
+          <p>June 15, 2025 | 10:05 AM</p>
+        </div>
+        <div class="avctivity">
+          <div class="time-tracker">
+            <div class="text-card">
+              <p class="title">Start Pomodoro</p>
+              <p class="description">You can start tracking</p>
+            </div>
+            <button class="task-button pomodoro-open-btn" id="openPopup"><i class="fa-solid fa-play"></i></button>
+             <!-- <button class="pomodoro-open-btn">Start Pomodoro</button> -->
+          </div>
 
+
+
+         
+<!-- Pomodoro Popup -->
+<div id="pomodoro-overlay" class="hidden" style="display: none;">
+  <div class="pomodoro-popup">
+    <span class="close-btn" id="pomodoro-close">✖</span>
+    <span class="settings-btn" id="pomodoro-settings"><i class="fa-solid fa-ellipsis-vertical" id="settings-icon"></i></span>
+
+    <div class="tab-buttons">
+      <button class="tab active" data-mode="pomodoro">Pomodoro</button>
+      <button class="tab" data-mode="short">Short Break</button>
+      <button class="tab" data-mode="long">Long Break</button>
+    </div>
+
+    <div class="timer-config hidden" id="timer-settings">
+      <label>Pomodoro (min): <input type="number" id="pomodoro-time" value="25" min="1"/></label>
+      <label>Short Break (min): <input type="number" id="short-time" value="5" min="1"/></label>
+      <label>Long Break (min): <input type="number" id="long-time" value="15" min="1"/></label>
+    </div>
+
+    <div id="timer-area">
+      <div class="timer-circle">
+        <div class="timer-display" id="timer-display">25:00</div>
+      </div>
+      <button id="start-timer">Start</button>
+    </div>
+
+    <audio id="alarm-audio" src="../alarm.mp3" preload="auto"></audio>
+  </div>
+</div>
+
+
+
+
+
+          <div class="taske-create">
+            <div class="text-card">
+              <p class="title">Create Task</p>
+              <p class="description">Create a new task</p>
+            </div>
+            <button class="task-button" id="ms-openPopupBtn"><i class="fa-solid fa-plus"></i></button>
+          </div>
 
 
 
@@ -232,7 +277,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
                 <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 20px;"><label for="due-date">Due Date</label>
                 <input style="width: 50%;" type="date" id="due-date" name="due_date" /></div>
 
-
                 <label>Priority Level *</label>
                 <input type="hidden" name="priority" id="ms-priority-value" value="High">
                 <div class="ms-priority-levels">
@@ -251,236 +295,98 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
 
 
-      <!-- Task Overview Popup -->
-<div id="taskov-popup-overlay" aria-hidden="true">
-  <div id="taskov-popup" role="dialog" aria-modal="true" aria-labelledby="taskov-popupTitle">
-    <span class="taskov-close-btn" id="taskov-closePopupBtn" aria-label="Close popup">✖</span>
-    <h2 id="taskov-popupTitle"><i class="fas fa-clock"></i>&nbsp;Task Overview</h2>
 
-    <form id="taskov-taskOverviewForm">
-      <label>Task Name</label>
-      <p class="task-name">Mindsphere Figma Design</p>
-
-      <label>Description</label>
-      <textarea readonly class="description-box">Create a modern, responsive website redesign that improves user experience and aligns with our new brand identity. This includes updating the homepage, product pages, and contact forms with a fresh design system and improved navigation structure.</textarea>
-
-      <div class="task-meta">
-        <div>
-          <label>Status</label>
-          <select>
-            <option>Pending</option>
-            <option selected>In Progress</option>
-            <option>Completed</option>
-          </select>
-        </div>
-        <div>
-          <label>Priority</label>
-          <select>
-            <option>Low</option>
-            <option>Medium</option>
-            <option selected>High</option>
-          </select>
         </div>
       </div>
-
-      <div class="task-dates">
-        <div>
-          <label>Assigned Date</label>
-          <p>10 June, 2025</p>
+      <div class="data-card">
+        <div class="activity-data-card">
+          <div class="single-data-card">
+            <div class="data-card-text">
+              <p class="title">Weekly Activity</p>
+              <p>:</p>
+            </div>
+            <div class="data-card-text">
+              <p class="progress">90%</p>
+              <p class="icon"><i class="fa-solid fa-code-merge"></i></p>
+            </div>
+          </div>
+          <div class="single-data-card">
+            <div class="data-card-text">
+              <p class="title">Worked This Week</p>
+              <p>:</p>
+            </div>
+            <div class="data-card-text">
+              <p class="progress">42:04:36</p>
+              <p class="icon"><i class="fa-solid fa-arrow-rotate-right"></i></p>
+            </div>
+          </div>
+          <div class="single-data-card">
+            <div class="data-card-text">
+              <p class="title">Task Worked</p>
+              <p>:</p>
+            </div>
+            <div class="data-card-text">
+              <p class="progress">03</p>
+              <p class="icon"><i class="fa-regular fa-folder"></i></p>
+            </div>
+          </div>
         </div>
-        <div>
-          <label>Due Date</label>
-          <p>25 June, 2025</p>
-        </div>
-      </div>
-
-      
-      <label for="progressRange">Update Progress</label>
-      <input type="range" id="progressRange" name="progress" min="0" max="100" value="65"/>
-      <p id="progressValue">65% Completed</p>
-    
-
-      <div class="taskov-btn-group">
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Update</button>
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Mark as Completed</button>
-        <button type="button" style="background-color: #FF7500;" class="taskov-btn-remove">Remove Task</button>
-      </div>
-    </form>
+        <div class="bottom-section">
+          <div class="recent-activity">
+            <div class="recent-activity-title">
+              <h2>Recent Activity</h2>
+              <p>:</p>
+            </div>
+            <form action="" class="recent-activity-form">
+              <input type="text" placeholder="Kim Jong Un">
+              <button>View All</button>
+            </form>
+            <div class="recent-activity-images">
+              <img src="../img/Rectangle 168.png" alt="">
+              <img src="../img/Rectangle 169.png" alt="">
+              <img src="../img/Rectangle 170.png" alt="">
+              <img src="../img/Rectangle 187.png" alt="">
+              <img src="../img/Rectangle 189.png" alt="">
+            </div>
+          </div>
+         <div class="tasks-section">
+  <div class="title">
+    <h2>Tasks</h2>
+    <div class="task-list">
+      <?php if (empty($user_tasks)): ?>
+        <p>No tasks created yet.</p>
+      <?php else: ?>
+        <?php foreach ($user_tasks as $task): ?>
+          <div class="task-item">
+            <div class="task-info">
+              <i class="fa-regular fa-folder"></i>
+              <?php
+                $task_name = htmlspecialchars($task['task_name']);
+                $display_name = mb_strlen($task_name) > 5 ? mb_substr($task_name, 0, 5) . '...' : $task_name;
+              ?>
+              <span><?= $display_name ?></span>
+            </div>
+            <div class="task-meta">
+              <span class="time"><?= htmlspecialchars($task['duration']) ?></span>
+              <div class="progress-bar">
+                <div class="progress" style="width: <?= intval($task['progress']) ?>%;"></div>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+    </div>
+    <button class="view-all-btn">View All</button>
   </div>
 </div>
 
 
-
-      <div class="wrapper">
-        <div class="left">
-
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle"></i> On progress</h3>
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
-
-            </div>
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
-
-            </div>
-
-
-          </div>
-
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle pending"></i> Pending</h3>
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-            
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle completed"></i> Completed</h3>
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-            </div>
-
-
-          </div>
-
-          
-          
         </div>
-        <div class="right"></div>
       </div>
-
-
     </div>
   </div>
 
 
-  
-  <script src="../js/task.js"></script>
   <script src="../js/script.js"></script>
   <script>
     // Priority level selection logic
