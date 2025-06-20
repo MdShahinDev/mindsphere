@@ -1,0 +1,478 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    align-items: center;
+}
+.nav a{
+    text-decoration: none;
+    color: #000;
+    margin-right: 20px;
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.nav a.active{
+    border-bottom: 2px solid #FF7500;
+}
+.navBtn{
+    padding: 10px 50px;
+    background-color: #FF7500;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+.navBtn i{
+    padding-left: 10px;
+}
+
+
+.card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3{
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #FF7500;
+    padding-bottom: 10px;
+}
+h3 i{
+    font-size: 10px;
+    margin-right: 10px;
+}
+.task-status{
+    color: #fff;
+    background-color: #000;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+.description{
+    color: #787486;
+}
+.priority{
+    color: #C51616;
+    background-color: #FBE4E1;
+    padding: 10px 20px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    display: inline-block;
+}
+.progressBbar{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.bar{
+    width: 100%;
+    height: 5px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+}
+.progress-fill{
+    background-color: #FF7500;
+    height: 100%;
+    border-radius: 10px;
+}
+.status-card{
+    background-color: #fff;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+}
+.inner-card{
+    margin-top: 1.5rem;
+    border: 1px solid #FF7500;
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+.wrapper .left{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem;
+}
+
+.pending{
+    color: #FF7500;
+}
+
+.duration-icon{
+    
+    color: #FF7500;
+    font-size: 16px;
+    
+    
+}
+.inner-card{
+    background-color: #fff !important;
+}
+.card-grid{
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    background-color: #FBE4E1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #FF7500;
+    margin-right: -10px;
+}
+.mt-10{
+    margin-top: 10px;
+}
+
+
+.title-option i{
+    margin-left: 10px;
+}
+
+.done{
+    color: lightgreen;
+}
+
+.completed{
+    color: lightgreen;
+}
+
+
+
+
+/* ===================== ADD TASK POPUP START ============================ */
+
+
+
+/* Background content */
+#ms-content {
+  padding: 20px;
+  transition: filter 0.3s ease;
+}
+
+/* Blur effect when popup active */
+#ms-content.ms-blur {
+  filter: blur(5px);
+  user-select: none;
+}
+
+/* Button to open popup */
+.ms-open-popup-btn {
+  padding: 10px 20px;
+  background-color: #ff7800;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Popup Overlay */
+#ms-popup-overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* We will add display:flex from JS only */
+
+/* Popup box */
+#ms-popup {
+  background: white;
+  border-radius: 16px;
+  width: 600px;
+  padding: 30px 25px 25px 25px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+/* Close icon */
+#ms-popup .ms-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+#ms-popup .ms-close-btn:hover {
+  color: #ff7800;
+}
+
+/* Popup heading */
+#ms-popup h2 {
+  margin: 0 0 20px;
+  font-weight: 900;
+  font-size: 24px;
+  color: #222;
+}
+
+/* Form styles */
+#ms-popup label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  color: #555;
+}
+
+#ms-popup input[type="text"],
+#ms-popup textarea,
+#ms-popup select {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  transition: border-color 0.3s ease;
+  resize: vertical;
+}
+
+#ms-popup input[type="text"]:focus,
+#ms-popup textarea:focus,
+#ms-popup select:focus {
+  outline: none;
+  border-color: #ff7800;
+}
+
+/* Priority buttons container */
+.ms-priority-levels {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.ms-priority-level {
+  flex: 1;
+  padding: 8px 0;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.ms-priority-level.ms-high {
+  color: #d80000;
+  border-color: #d80000;
+}
+
+.ms-priority-level.ms-high.selected {
+  background-color: #d80000;
+  color: white;
+}
+
+.ms-priority-level.ms-medium {
+  color: #d98a00;
+  border-color: #d98a00;
+}
+
+.ms-priority-level.ms-medium.selected {
+  background-color: #d98a00;
+  color: white;
+}
+
+.ms-priority-level.ms-low {
+  color: #00d9a4;
+  border-color: #00d9a4;
+}
+
+.ms-priority-level.ms-low.selected {
+  background-color: #00d9a4;
+  color: white;
+}
+
+#ms-popupTitle span{
+  color: var(--primary-color);
+}
+
+/* Buttons at bottom */
+.ms-btn-group {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ms-btn-cancel,
+.ms-btn-create {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+.ms-btn-cancel {
+  background-color: #eee;
+  color: #555;
+  transition: background-color 0.3s ease;
+}
+
+.ms-btn-cancel:hover {
+  background-color: #ddd;
+}
+
+.ms-btn-create {
+  background-color: #ff7800;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.ms-btn-create:hover {
+  background-color: #e26900;
+}
+
+
+/* ===================== ADD TASK POPUP END ============================ */
+
+
+
+
+
+
+
+/* ===================== TASK OVERVIEW POPUP START ============================ */
+
+#taskov-popup-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+#taskov-popup {
+  background: #fff;
+  border-radius: 16px;
+  width: 650px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+#taskov-popup h2 {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #1a1a1a;
+}
+
+#taskov-popup h2 i {
+  color: #ff8c00;
+}
+
+.taskov-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.task-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  color: #111;
+}
+
+.description-box {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: none;
+  background-color: #f9f9f9;
+}
+
+.task-meta, .task-dates {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.task-meta select,
+.task-dates p,
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+}
+
+.taskov-btn-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.taskov-btn-complete,
+.taskov-btn-remove {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+}
+
+.taskov-btn-complete {
+  background: #ff8c00;
+  color: white;
+}
+
+.taskov-btn-remove {
+  background: #00c292;
+  color: white;
+}
+#progressRange{
+    width: 100%;
+}
+
+
+
+/* ===================== TASK OVERVIEW POPUP END ============================ */

@@ -192,8 +192,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       
       <div class="nav">
         <div class="nav-links">
-        <a href="../dashboard/DashboardTask.php" class="active">Today</a>
-        <a href="../dashboard/DashboardAllTask.php">All Tasks</a>
+        <a href="../dashboard/DashboardTask.php" >Today</a>
+        <a href="../dashboard/DashboardAllTask.php" class="active">All Tasks</a>
         <a href="../dashboard/DashboardTaskCompleted.php">Completed</a>
       </div>
       <div class="nav-btn">
@@ -311,11 +311,43 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
 
 
-      <div class="wrapper">
-        <div class="left">
+      <div class="wrapper" style="margin-top: 1rem;">
+        <div class="left" style="background-color: #fff; margin-top: 0; padding: 1.5rem; border-radius: 15px;">
 
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle"></i> On progress</h3>
+          
+           
+            <div class="inner-card">
+              <div class="card-header">
+                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
+                <div class="title-option">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <i class="fa-solid fa-trash"></i>
+                </div>
+              </div>
+              
+                <h4 class="taskOverview">Task Title</h4>
+                
+              
+              <p class="description">Lorem ipsum dolor sit amet.</p>
+              <p class="priority">High Priority</p>
+            </div>
+
+            <div class="inner-card">
+              <div class="card-header">
+                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
+                <div class="title-option">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  <i class="fa-solid fa-trash"></i>
+                </div>
+              </div>
+              
+                <h4 class="taskOverview">Task Title</h4>
+                
+              
+              <p class="description">Lorem ipsum dolor sit amet.</p>
+              <p class="priority">High Priority</p>
+            </div>
+
 
 
             <div class="inner-card">
@@ -332,138 +364,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               
               <p class="description">Lorem ipsum dolor sit amet.</p>
               <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
-
             </div>
 
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
+          
 
-            </div>
-
-
-          </div>
-
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle pending"></i> Pending</h3>
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-            
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-          </div>
-
-
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle completed"></i> Completed</h3>
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-            </div>
+        
 
 
           </div>
