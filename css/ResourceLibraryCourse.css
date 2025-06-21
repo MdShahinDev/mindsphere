@@ -1,9 +1,3 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
 
 body {
   background: #fff7f3;
@@ -12,48 +6,12 @@ body {
 }
 
 .hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffece3;
-  padding: 3rem 10%;
-  flex-wrap: wrap;
+  text-align: center;
+  padding: 2rem;
+  background-color: #ffe9dc;
 }
 
-.hero-left {
-  flex: 1 1 45%;
-}
 
-.hero-left h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.highlight {
-  color: #ff6a00;
-}
-
-.subheading {
-  font-weight: bold;
-  color: #ff6a00;
-  margin: 10px 0;
-}
-
-.hero-left p {
-  margin: 10px 0 20px;
-  max-width: 500px;
-}
-
-.hero-right {
-  flex: 1 1 45%;
-  display: flex;
-  justify-content: center;
-}
-
-.hero-right img {
-  width: 250px;
-  max-width: 100%;
-}
 
 .btn {
   background: #ff6a00;

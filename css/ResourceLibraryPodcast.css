@@ -1,0 +1,54 @@
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+  background-color: #ffe9dc;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.tab {
+  background: #f6f6f6;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.tab.active {
+  background: #ff6a00;
+  color: white;
+}
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 0 2rem;
+}
+.podcast-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+.podcast-card:hover {
+  transform: translateY(-5px);
+}
+audio {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+#loadMoreBtn {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.7rem 1.5rem;
+  background: #ff6a00;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}

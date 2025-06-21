@@ -1,0 +1,58 @@
+
+.hero {
+  text-align: center;
+  padding: 2rem;
+  background-color: #ffe9dc;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.tab {
+  background: #f0f0f0;
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.tab.active {
+  background: #e67e22;
+  color: white;
+}
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  padding: 0 2rem;
+}
+.book-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+.book-card:hover {
+  transform: translateY(-5px);
+}
+.thumbnail {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  display: none;
+}
+#loadMoreBtn {
+  display: block;
+  margin: 2rem auto;
+  padding: 0.7rem 1.5rem;
+  background: #e67e22;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
