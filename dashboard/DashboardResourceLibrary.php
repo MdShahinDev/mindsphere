@@ -159,13 +159,13 @@ if ($stmt) {
 
             <div class="card">
                 <img src="../img/rl_books.png" alt="">
-                <p><a href=""> <span><i class="fa-solid fa-book"></i></span> Books</a></p>
+                <p><a href="../resourceLibraryBooks.html"> <span><i class="fa-solid fa-book"></i></span> Books</a></p>
             </div>
 
 
             <div class="card">
                 <img src="../img/rl_podcast.png" alt="">
-                <p><a href=""> <span><i class="fa-solid fa-microphone-lines"></i></span> Podcast</a></p>
+                <p><a href="../resourceLibraryPodcast.php"> <span><i class="fa-solid fa-microphone-lines"></i></span> Podcast</a></p>
             </div>
 
             <div class="card">
