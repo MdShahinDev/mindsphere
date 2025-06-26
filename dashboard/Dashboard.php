@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       <div class="date-header">
         <div class="date-time">
           <h3>Today</h3>
-          <p>June 15, 2025 | 10:05 AM</p>
+          <p>June 22, 2025 | 09:10 AM</p>
         </div>
         <div class="avctivity">
           <div class="time-tracker">

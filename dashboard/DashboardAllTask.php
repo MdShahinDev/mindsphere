@@ -48,7 +48,7 @@ if ($stmt) {
 
 // --- Fetch user tasks ---
 $user_tasks = [];
-$stmt = $conn->prepare("SELECT task_name, duration, progress FROM tasks WHERE user_id = ?");
+$stmt = $conn->prepare("SELECT id, task_name, notes, duration, priority, created_at, due_date, status, time_worked, progress FROM tasks WHERE user_id = ?");
 if ($stmt) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -69,10 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
     $priority = $_POST['priority'];
     $notes = $_POST['notes'] ?? '';
     $progress = 0; // default
+    $due_date = $_POST['due_date'] ?? null;
 
-    $stmt = $conn->prepare("INSERT INTO tasks (user_id, task_name, duration, priority, notes, progress) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tasks (user_id, task_name, duration, priority, notes, progress, due_date) VALUES (?, ?, ?, ?, ?, ?, ?)");
     if ($stmt) {
-        $stmt->bind_param("issssi", $user_id, $task_name, $duration, $priority, $notes, $progress);
+        $stmt->bind_param("issssis", $user_id, $task_name, $duration, $priority, $notes, $progress, $due_date);
         if ($stmt->execute()) {
             // Task inserted successfully
             header("Location: DashboardTask.php");
@@ -252,60 +253,58 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
 
       <!-- Task Overview Popup -->
-<div id="taskov-popup-overlay" aria-hidden="true">
-  <div id="taskov-popup" role="dialog" aria-modal="true" aria-labelledby="taskov-popupTitle">
-    <span class="taskov-close-btn" id="taskov-closePopupBtn" aria-label="Close popup">✖</span>
-    <h2 id="taskov-popupTitle"><i class="fas fa-clock"></i>&nbsp;Task Overview</h2>
+      <div id="taskov-popup-overlay" aria-hidden="true">
+        <div id="taskov-popup" role="dialog" aria-modal="true" aria-labelledby="taskov-popupTitle">
+          <span class="taskov-close-btn" id="taskov-closePopupBtn" aria-label="Close popup">✖</span>
+          <h2 id="taskov-popupTitle"><i class="fas fa-clock"></i>&nbsp;Task Overview</h2>
 
-    <form id="taskov-taskOverviewForm">
-      <label>Task Name</label>
-      <p class="task-name">Mindsphere Figma Design</p>
+          <form id="taskov-taskOverviewForm">
+        <label>Task Name</label>
+        <p class="task-name" id="popup-task-name">Loading...</p>
 
-      <label>Description</label>
-      <textarea readonly class="description-box">Create a modern, responsive website redesign that improves user experience and aligns with our new brand identity. This includes updating the homepage, product pages, and contact forms with a fresh design system and improved navigation structure.</textarea>
+        <label>Description</label>
+        <textarea readonly class="description-box" id="popup-description">Loading...</textarea>
 
-      <div class="task-meta">
-        <div>
-          <label>Status</label>
-          <select>
-            <option>Pending</option>
-            <option selected>In Progress</option>
-            <option>Completed</option>
-          </select>
+        <div class="task-meta">
+          <div>
+            <label>Status</label>
+            <select id="popup-status">
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+          <div>
+            <label>Priority</label>
+            <select id="popup-priority">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+            </select>
+          </div>
         </div>
-        <div>
-          <label>Priority</label>
-          <select>
-            <option>Low</option>
-            <option>Medium</option>
-            <option selected>High</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="task-dates">
-        <div>
-          <label>Assigned Date</label>
-          <p>10 June, 2025</p>
+        <div class="task-dates">
+          <div>
+            <label>Assigned Date</label>
+            <p id="assigned-date">--</p>
+          </div>
+          <div>
+            <label>Due Date</label>
+            <p id="due-date">--</p>
+          </div>
         </div>
-        <div>
-          <label>Due Date</label>
-          <p>25 June, 2025</p>
+
+        <label for="progressRange">Update Progress</label>
+        <input type="range" id="progressRange" name="progress" min="0" max="100" value="0"/>
+        <p id="progressValue">0% Completed</p>
+
+        <div class="taskov-btn-group">
+          <button type="button" style="background-color: green;" class="taskov-btn-complete">Update</button>
+          <button type="button" style="background-color: green;" class="taskov-btn-complete">Mark as Completed</button>
+          <button type="button" style="background-color: #FF7500;" class="taskov-btn-remove">Remove Task</button>
         </div>
-      </div>
-
-      
-      <label for="progressRange">Update Progress</label>
-      <input type="range" id="progressRange" name="progress" min="0" max="100" value="65"/>
-      <p id="progressValue">65% Completed</p>
-    
-
-      <div class="taskov-btn-group">
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Update</button>
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Mark as Completed</button>
-        <button type="button" style="background-color: #FF7500;" class="taskov-btn-remove">Remove Task</button>
-      </div>
-    </form>
+      </form>
   </div>
 </div>
 
@@ -315,56 +314,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
         <div class="left" style="background-color: #fff; margin-top: 0; padding: 1.5rem; border-radius: 15px;">
 
           
-           
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
+            
+            <?php foreach ($user_tasks as $task): ?>
+              <div class="inner-card" data-task-id="<?= $task['id'] ?>">
+                <div class="card-header">
+                  <p class="task-status"><i class="fa-solid fa-clock"></i> <?= htmlspecialchars($task['status']) ?></p>
+                  <div class="title-option">
+                    <i class="fa-solid fa-pen-to-square task-edit" data-id="<?= $task['id'] ?>"></i>
+                    <i class="fa-solid fa-trash task-delete" data-id="<?= $task['id'] ?>"></i>
+                  </div>
                 </div>
+                <h4 class="taskOverview"><?= htmlspecialchars($task['task_name']) ?></h4>
+                <p class="description"><?= htmlspecialchars($task['notes']) ?></p>
+                <p class="priority"><?= htmlspecialchars($task['priority']) ?> Priority</p>
               </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-            </div>
+            <?php endforeach; ?>
 
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-            </div>
-
-
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-            </div>
 
           
 
@@ -397,6 +362,89 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       });
     });
     </script>
+
+    <script>
+        const popupOverlay = document.getElementById("taskov-popup-overlay");
+        const popupForm = document.getElementById("taskov-taskOverviewForm");
+
+        document.querySelectorAll(".task-edit").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const taskId = btn.dataset.id;
+
+            fetch(`get_task.php?id=${taskId}`)
+              .then(res => res.json())
+              .then(task => {
+                popupOverlay.setAttribute("data-task-id", taskId);
+                popupOverlay.querySelector(".task-name").textContent = task.task_name;
+                popupOverlay.querySelector(".description-box").value = task.notes;
+                document.querySelector("#progressRange").value = task.progress;
+                document.getElementById("progressValue").textContent = `${task.progress}% Completed`;
+
+                // Set selected status
+                popupForm.querySelectorAll("select")[0].value = task.status;
+                popupForm.querySelectorAll("select")[1].value = task.priority;
+
+                popupOverlay.style.display = "flex";
+                // Set status and priority
+                  document.getElementById("popup-status").value = task.status;
+                  document.getElementById("popup-priority").value = task.priority;
+
+                  // Format assigned date
+                  const assignedDate = new Date(task.created_at);
+                  document.getElementById("assigned-date").textContent = assignedDate.toLocaleDateString('en-GB', {
+                    day: 'numeric', month: 'long', year: 'numeric'
+                  });
+
+                  // Format due date
+                  if (task.due_date) {
+                    const dueDate = new Date(task.due_date);
+                    document.getElementById("due-date").textContent = dueDate.toLocaleDateString('en-GB', {
+                      day: 'numeric', month: 'long', year: 'numeric'
+                    });
+                  } else {
+                    document.getElementById("due-date").textContent = "Not set";
+                  }
+                                });
+          });
+        });
+
+        document.getElementById("taskov-closePopupBtn").addEventListener("click", () => {
+          popupOverlay.style.display = "none";
+        });
+
+        document.querySelector(".taskov-btn-complete").addEventListener("click", () => {
+          const taskId = popupOverlay.getAttribute("data-task-id");
+          const progress = document.getElementById("progressRange").value;
+          const status = popupForm.querySelector("select").value;
+
+          fetch('update_task.php', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ id: taskId, progress: progress, status: status })
+          }).then(res => res.text()).then(resp => {
+            location.reload();
+          });
+        });
+
+        document.querySelector(".taskov-btn-remove").addEventListener("click", () => {
+          const taskId = popupOverlay.getAttribute("data-task-id");
+
+          if (confirm("Are you sure you want to delete this task?")) {
+            fetch('delete_task.php', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({ id: taskId })
+            }).then(res => res.text()).then(resp => {
+              location.reload();
+            });
+          }
+        });
+
+        document.getElementById("progressRange").addEventListener("input", function() {
+          document.getElementById("progressValue").textContent = `${this.value}% Completed`;
+        });
+      </script>
+
 </body>
 
 </html>
