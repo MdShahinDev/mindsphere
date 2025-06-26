@@ -48,7 +48,7 @@ if ($stmt) {
 
 // --- Fetch user tasks ---
 $user_tasks = [];
-$stmt = $conn->prepare("SELECT task_name, duration, progress FROM tasks WHERE user_id = ?");
+$stmt = $conn->prepare("SELECT id, task_name, notes, priority, created_at, due_date, progress FROM tasks WHERE user_id = ? AND status = 'Completed'");
 if ($stmt) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -205,7 +205,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
 
 
-          <!-- Popup Overlay -->
+          <!-- Popup Overlay
           <div id="ms-popup-overlay" aria-hidden="true">
             <div id="ms-popup" role="dialog" aria-modal="true" aria-labelledby="ms-popupTitle">
               <span class="ms-close-btn" id="ms-closePopupBtn" aria-label="Close popup">✖</span>
@@ -247,7 +247,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
                 </div>
               </form>
             </div>
-          </div>
+          </div> -->
 
 
 
@@ -316,93 +316,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
           
            
-             <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
+            <?php foreach ($user_tasks as $task): ?>
+              <div class="inner-card" data-task-id="<?= $task['id'] ?>">
+                <div class="card-header">
+                  <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
+                  <div class="title-option">
+                    <i class="fa-solid fa-pen-to-square task-edit" data-id="<?= $task['id'] ?>"></i>
+                    <i class="fa-solid fa-trash task-delete" data-id="<?= $task['id'] ?>"></i>
+                  </div>
+                </div>
+                
+                <h4 class="taskOverview"><?= htmlspecialchars($task['task_name']) ?></h4>
+                <p class="description"><?= htmlspecialchars($task['notes']) ?></p>
+                <p class="priority"><?= htmlspecialchars($task['priority']) ?> Priority</p>
+
+                <div class="progressBbar mt-10">
+                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
+                  <div class="duration">Done</div>
                 </div>
               </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
+            <?php endforeach; ?>
 
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-
-
-             <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
-                  </div>
-                
-                
-              </div>
-
-            </div>
-
-
-             <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
-                  </div>
-                
-                
-              </div>
-
-            </div>
           
 
         

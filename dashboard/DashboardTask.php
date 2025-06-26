@@ -48,7 +48,7 @@ if ($stmt) {
 
 // --- Fetch user tasks ---
 $user_tasks = [];
-$stmt = $conn->prepare("SELECT task_name, duration, progress FROM tasks WHERE user_id = ?");
+$stmt = $conn->prepare("SELECT id, task_name, notes, duration, priority, created_at, status, time_worked, progress, due_date FROM tasks WHERE user_id = ?");
 if ($stmt) {
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -69,10 +69,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
     $priority = $_POST['priority'];
     $notes = $_POST['notes'] ?? '';
     $progress = 0; // default
+    $due_date = $_POST['due_date'] ?? null;
 
-    $stmt = $conn->prepare("INSERT INTO tasks (user_id, task_name, duration, priority, notes, progress) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tasks (user_id, task_name, duration, priority, notes, progress, created_at, status, due_date) VALUES (?, ?, ?, ?, ?, ?, NOW(), 'Pending', ?)");
     if ($stmt) {
-        $stmt->bind_param("issssi", $user_id, $task_name, $duration, $priority, $notes, $progress);
+        $stmt->bind_param("issssis", $user_id, $task_name, $duration, $priority, $notes, $progress, $due_date);
         if ($stmt->execute()) {
             // Task inserted successfully
             header("Location: DashboardTask.php");
@@ -86,8 +87,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 }
 
 
-?>
 
+// Handle AJAX actions before any HTML is sent
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $task_id = $_POST['task_id'];
+
+    switch ($action) {
+        case 'delete':
+            $stmt = $conn->prepare("DELETE FROM tasks WHERE id = ? AND user_id = ?");
+            $stmt->bind_param("ii", $task_id, $user_id);
+            $stmt->execute();
+            echo "Deleted";
+            exit;
+        case 'update_status':
+            $new_status = $_POST['status'];
+            $stmt = $conn->prepare("UPDATE tasks SET status = ? WHERE id = ? AND user_id = ?");
+            $stmt->bind_param("sii", $new_status, $task_id, $user_id);
+            $stmt->execute();
+            echo "Status Updated";
+            exit;
+        case 'update_progress':
+            $progress = intval($_POST['progress']);
+            $stmt = $conn->prepare("UPDATE tasks SET progress = ? WHERE id = ? AND user_id = ?");
+            $stmt->bind_param("iii", $progress, $task_id, $user_id);
+            $stmt->execute();
+            echo "Progress Updated";
+            exit;
+        default:
+            echo "Invalid Action";
+            exit;
+    }
+}
+?>
 
 
 
@@ -258,27 +290,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
     <h2 id="taskov-popupTitle"><i class="fas fa-clock"></i>&nbsp;Task Overview</h2>
 
     <form id="taskov-taskOverviewForm">
+      <input type="hidden" id="popup-task-id" name="task_id" value="">
+
       <label>Task Name</label>
-      <p class="task-name">Mindsphere Figma Design</p>
+      <p class="task-name" id="popup-task-name"></p>
 
       <label>Description</label>
-      <textarea readonly class="description-box">Create a modern, responsive website redesign that improves user experience and aligns with our new brand identity. This includes updating the homepage, product pages, and contact forms with a fresh design system and improved navigation structure.</textarea>
+      <textarea readonly class="description-box" id="popup-task-desc"></textarea>
 
       <div class="task-meta">
         <div>
           <label>Status</label>
-          <select>
+          <select id="popup-task-status">
             <option>Pending</option>
-            <option selected>In Progress</option>
+            <option>In Progress</option>
             <option>Completed</option>
           </select>
         </div>
         <div>
           <label>Priority</label>
-          <select>
+          <select id="popup-task-priority">
             <option>Low</option>
             <option>Medium</option>
-            <option selected>High</option>
+            <option>High</option>
           </select>
         </div>
       </div>
@@ -294,18 +328,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
         </div>
       </div>
 
-      
       <label for="progressRange">Update Progress</label>
-      <input type="range" id="progressRange" name="progress" min="0" max="100" value="65"/>
+      <input type="range" id="progressRange" name="progress" min="0" max="100" value="0" />
       <p id="progressValue">65% Completed</p>
-    
 
       <div class="taskov-btn-group">
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Update</button>
-        <button type="button" style="background-color: green;" class="taskov-btn-complete">Mark as Completed</button>
-        <button type="button" style="background-color: #FF7500;" class="taskov-btn-remove">Remove Task</button>
+        <button type="button" class="taskov-btn-complete" id="btn-update-task">Update</button>
+        <button type="button" class="taskov-btn-complete" id="btn-mark-complete">Mark as Completed</button>
+        <button type="button" class="taskov-btn-remove" id="btn-delete-task">Remove Task</button>
       </div>
     </form>
+
   </div>
 </div>
 
@@ -314,159 +347,111 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       <div class="wrapper">
         <div class="left">
 
-          <div class="status-card">
-            <h3><i class="fa-solid fa-circle"></i> On progress</h3>
+          <!-- On Progress Tasks -->
+        <div class="status-card">
+          <h3><i class="fa-solid fa-circle"></i> On progress</h3>
 
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
+          <?php foreach ($user_tasks as $task): ?>
+            <?php if ($task['status'] === 'In Progress'): ?>
+              <div class="inner-card"
+                  data-id="<?= $task['id'] ?>"
+                  data-task-name="<?= htmlspecialchars($task['task_name']) ?>"
+                  data-notes="<?= htmlspecialchars($task['notes']) ?>"
+                  data-priority="<?= $task['priority'] ?>"
+                  data-status="<?= $task['status'] ?>"
+                  data-progress="<?= $task['progress'] ?>"
+                  
+                  data-created="<?= date('d M, Y', strtotime($task['created_at'])) ?>"
+                  data-due="<?= $task['due_date'] ? date('d M, Y', strtotime($task['due_date'])) : 'N/A' ?>">
+                <div class="card-header">
+                  <p class="task-status"><i class="fa-solid fa-clock"></i> <?= htmlspecialchars($task['status']) ?></p>
+                  <div class="title-option">
+                    <i class="fa-solid fa-pen-to-square edit-task" data-id="<?= $task['id'] ?>"></i>
+                    <i class="fa-solid fa-trash delete-task" data-id="<?= $task['id'] ?>"></i>
+                  </div>
+                </div>
+                <h4 class="taskOverview"><?= htmlspecialchars($task['task_name']) ?></h4>
+                <p class="description"><?= htmlspecialchars($task['notes']) ?></p>
+                <p class="priority"><?= htmlspecialchars($task['priority']) ?> Priority</p>
+                <div class="progressBbar">
+                  <div class="bar">
+                    <div class="progress-fill" style="width: <?= intval($task['progress']) ?>%;"></div>
+                  </div>
+                  <p><?= intval($task['progress']) ?>%</p>
                 </div>
               </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
-
-            </div>
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock"></i> Ongoing</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-              <div class="progressBbar">
-                <div class="bar">
-                  <div class="progress-fill" style="width: 90%;"></div>
-                </div>
-                <p>90%</p>
-              </div>
-
-            </div>
-
-
-          </div>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </div>
 
           <div class="status-card">
             <h3><i class="fa-solid fa-circle pending"></i> Pending</h3>
 
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
+            <?php foreach ($user_tasks as $task): ?>
+              <?php if ($task['status'] === 'Pending'): ?>
+                <div class="inner-card"
+                  data-id="<?= $task['id'] ?>"
+                  data-task-name="<?= htmlspecialchars($task['task_name']) ?>"
+                  data-notes="<?= htmlspecialchars($task['notes']) ?>"
+                  data-priority="<?= $task['priority'] ?>"
+                  data-status="<?= $task['status'] ?>"
+                  data-progress="<?= $task['progress'] ?>"
+                  data-created="<?= date('d M, Y', strtotime($task['created_at'])) ?>"
+                  data-due="<?= $task['due_date'] ? date('d M, Y', strtotime($task['due_date'])) : 'N/A' ?>">
+                  <div class="card-header">
+                    <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
+                    <div class="title-option">
+                      <i class="fa-solid fa-pen-to-square edit-task" data-id="<?= $task['id'] ?>"></i>
+                      <i class="fa-solid fa-trash delete-task" data-id="<?= $task['id'] ?>"></i>
+                    </div>
                   </div>
-                
-                
-              </div>
-
-            </div>
-
-            
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-clock pending"></i> Pending</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4>Task Title</h4>
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
-                  <div class="duration">
-                    3 hours
+                  <h4 class="taskOverview"><?= htmlspecialchars($task['task_name']) ?></h4>
+                  <p class="description"><?= htmlspecialchars($task['notes']) ?></p>
+                  <p class="priority"><?= htmlspecialchars($task['priority']) ?> Priority</p>
+                  <div class="progressBbar mt-10">
+                    <div class="icon"><i class="fa-solid fa-hourglass-end duration-icon"></i></div>
+                    <div class="duration"><?= htmlspecialchars($task['duration']) ?></div>
                   </div>
-                
-                
-              </div>
-
-            </div>
-
-
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
           </div>
+
 
 
           <div class="status-card">
             <h3><i class="fa-solid fa-circle completed"></i> Completed</h3>
 
-
-            <div class="inner-card">
-              <div class="card-header">
-                <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
-                <div class="title-option">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                  <i class="fa-solid fa-trash"></i>
-                </div>
-              </div>
-              
-                <h4 class="taskOverview">Task Title3</h4>
-                
-                
-              
-              <p class="description">Lorem ipsum dolor sit amet3.</p>
-              <p class="priority">High Priority</p>
-
-              <div class="progressBbar mt-10">
-                
-                  <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
-                  <div class="duration">
-                    Done
+            <?php foreach ($user_tasks as $task): ?>
+              <?php if ($task['status'] === 'Completed'): ?>
+                <div class="inner-card"
+                  data-id="<?= $task['id'] ?>"
+                  data-task-name="<?= htmlspecialchars($task['task_name']) ?>"
+                  data-notes="<?= htmlspecialchars($task['notes']) ?>"
+                  data-priority="<?= $task['priority'] ?>"
+                  data-status="<?= $task['status'] ?>"
+                  data-progress="<?= $task['progress'] ?>"
+                  data-created="<?= date('d M, Y', strtotime($task['created_at'])) ?>"
+                  data-due="<?= $task['due_date'] ? date('d M, Y', strtotime($task['due_date'])) : 'N/A' ?>">
+                  <div class="card-header">
+                    <p class="task-status"><i class="fa-solid fa-circle-check done"></i> Completed</p>
+                    <div class="title-option">
+                      <i class="fa-solid fa-pen-to-square edit-task" data-id="<?= $task['id'] ?>"></i>
+                      <i class="fa-solid fa-trash delete-task" data-id="<?= $task['id'] ?>"></i>
+                    </div>
                   </div>
-                
-                
-              </div>
-
-            </div>
-
-
-            </div>
-
-
+                  <h4 class="taskOverview"><?= htmlspecialchars($task['task_name']) ?></h4>
+                  <p class="description"><?= htmlspecialchars($task['notes']) ?></p>
+                  <p class="priority"><?= htmlspecialchars($task['priority']) ?> Priority</p>
+                  <div class="progressBbar mt-10">
+                    <div class="icon done-fill"><i class="fa-solid fa-check duration-icon"></i></div>
+                    <div class="duration">Done</div>
+                  </div>
+                </div>
+              <?php endif; ?>
+            <?php endforeach; ?>
           </div>
+
 
           
           
@@ -492,6 +477,123 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       });
     });
     </script>
+    <script>
+      document.querySelectorAll(".delete-task").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          if (confirm("Delete this task?")) {
+            fetch("", {
+              method: "POST",
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: `action=delete&task_id=${id}`
+            })
+            .then(res => res.text())
+            .then(msg => {
+              console.log(msg);
+              location.reload();
+            });
+          }
+        });
+      });
+    </script>
+    <script>
+        // Task popup open event
+        document.querySelectorAll(".taskOverview").forEach(taskEl => {
+        taskEl.addEventListener("click", () => {
+          const card = taskEl.closest(".inner-card");
+          const taskId = card.querySelector(".edit-task")?.dataset.id;
+          const taskName = card.querySelector("h4").textContent;
+          const notes = card.querySelector(".description").textContent;
+          const priority = card.querySelector(".priority").textContent.split(" ")[0];
+          const status = card.querySelector(".task-status").textContent.trim().split(" ")[1];
+          // const progress = card.querySelector(".progress-fill")?.style.width?.replace('%', '') || "0";
+          const progressBar = card.querySelector(".progress-fill");
+          const progress = progressBar ? parseInt(progressBar.style.width.replace('%', '')) : 0;
+
+          const createdAt = card.dataset.created;
+          const dueDate = card.dataset.due;
+
+          document.getElementById("popup-task-id").value = taskId;
+          document.getElementById("popup-task-name").textContent = taskName;
+          document.getElementById("popup-task-desc").value = notes;
+          document.getElementById("popup-task-status").value = status;
+          document.getElementById("popup-task-priority").value = priority;
+          document.getElementById("progressRange").value = progress;
+          document.getElementById("progressValue").textContent = progress + "% Completed";
+
+          document.getElementById("popup-created-at").textContent = createdAt;
+          document.getElementById("popup-due-date").textContent = dueDate;
+
+          document.getElementById("taskov-popup-overlay").style.display = "block";
+        });
+      });
+
+        document.getElementById("progressRange").addEventListener("input", e => {
+          document.getElementById("progressValue").textContent = e.target.value + "% Completed";
+        });
+
+        // Close popup
+        document.getElementById("taskov-closePopupBtn").addEventListener("click", () => {
+          document.getElementById("taskov-popup-overlay").style.display = "none";
+        });
+
+        // Update task
+        document.getElementById("btn-update-task").addEventListener("click", () => {
+          const id = document.getElementById("popup-task-id").value;
+          const status = document.getElementById("popup-task-status").value;
+          const progress = document.getElementById("progressRange").value;
+
+          fetch("", {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `action=update_status&task_id=${id}&status=${status}`
+          }).then(() => {
+            return fetch("", {
+              method: "POST",
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              body: `action=update_progress&task_id=${id}&progress=${progress}`
+            });
+          }).then(() => {
+            const card = document.querySelector(`.inner-card[data-id="${id}"]`);
+            if (card) {
+              card.dataset.progress = progress;
+              const fill = card.querySelector(".progress-fill");
+              if (fill) {
+                fill.style.width = `${progress}%`;
+              }
+            }
+            location.reload();
+          });
+        });
+
+        // Mark as completed
+        document.getElementById("btn-mark-complete").addEventListener("click", () => {
+          const id = document.getElementById("popup-task-id").value;
+          fetch("", {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `action=update_status&task_id=${id}&status=Completed`
+          }).then(() => {
+            location.reload();
+          });
+        });
+
+        // Delete task
+        document.getElementById("btn-delete-task").addEventListener("click", () => {
+          const id = document.getElementById("popup-task-id").value;
+          if (confirm("Are you sure you want to delete this task?")) {
+            fetch("", {
+              method: "POST",
+              headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+              body: `action=delete&task_id=${id}`
+            }).then(() => {
+              location.reload();
+            });
+          }
+        });
+      </script>
+
+
 </body>
 
 </html>
