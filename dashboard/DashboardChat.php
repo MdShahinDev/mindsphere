@@ -157,55 +157,20 @@ if ($stmt) {
         <div class="chat-button">
           <button><i class="fa-solid fa-plus"></i> New Chat</button>
         </div>
+  <div class="chat-header">
+        <h2 class="chat-title">Welcome to  Mindsphere AI</h2>
+        <h1>Ask me anything. I’m help to here!</h1>
+        </div>
         <div class="chat-main-section">
-          <div class="chat-title">
-            <p>Welcome to Mindsphere AI</p>
-            <h2>Ask me anything - I’m help to here!</h2>
-          </div>
-          <!-- <div class="">
-              <div class="chat-message-box">
-                <textarea name="" rows="6" id=""></textarea>
-                <div>
-                  <button class="send-button">
-                    <i class="fa-solid fa-paper-plane"></i> Send
-                  </button>
-                  <button class="send-button">
-                    <i class="fa-solid fa-paper-plane"></i> Upload File
-                  </button>
-                  <button class="send-button">
-                    <i class="fa-solid fa-paper-plane"></i> Voice Message
-                  </button>
-                  <button><i class="fa-solid fa-paper-plane"></i></button>
-                </div>
-              </div>
-            </div> -->
-          <div class="chatbox-container">
-            <textarea
-              class="chatbox-input"
-              placeholder="Whatever you need just ask Mindsphere !"
-              maxlength="10000"></textarea>
-            <div class="chatbox-footer">
-              <div class="chatbox-actions">
-                <!-- <span>📎 Attach File</span>
-                  <span>📁 Upload File</span>
-                  <span>🎙️ Voice message</span> -->
-                <button class="send-button">
-                  <i class="fa-solid fa-link"></i>Attach File
-                </button>
-                <button class="send-button">
-                  <i class="fa-solid fa-file-arrow-up"></i> Upload File
-                </button>
-                <button class="send-button">
-                  <i class="fa-solid fa-microphone"></i> Voice Message
-                </button>
-              </div>
-              <div class="chatbox-meta">
-                <span class="char-count">00/10,000</span>
-                <button class="chat-send-button"><i class="fa-solid fa-paper-plane"></i></button>
-              </div>
-            </div>
-          </div>
-          <div class="instruction">
+  <div class="chat-messages" id="chatBox"></div>
+  <div class="chat-input">
+      <textarea id="userInput" rows="1" placeholder="Whatever you need just ask Mindsphere !"></textarea>
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- Explore prompts below chat -->
+  <div class="instruction">
             <h2>Explore by ready prompt</h2>
             <div class="instruction-box">
               <div class="instruction-box-item">
@@ -230,10 +195,63 @@ if ($stmt) {
               </div>
             </div>
           </div>
-        </div>
+</div>
+
+
+
       </div>
     </div>
   </div>
+  <!-- Marked JS  -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <!-- Chatbot code -->
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function appendMessage(content, sender = 'bot') {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `message ${sender}`;
+      msgDiv.innerHTML = content;
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    sendBtn.addEventListener('click', () => {
+      const message = userInput.value.trim();
+      if (!message) return;
+
+      appendMessage(message, 'user');
+      userInput.value = '';
+
+      appendMessage('<em>Mindsphere is Typing...</em>', 'bot');
+
+      fetch('chat_api.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: message })
+      })
+      .then(res => res.json())
+      .then(data => {
+        chatBox.removeChild(chatBox.lastChild);
+        appendMessage(marked.parse(data.reply), 'bot');
+      })
+      .catch(err => {
+        chatBox.removeChild(chatBox.lastChild);
+        appendMessage("❌ Error: " + err.message, 'bot');
+      });
+    });
+
+    userInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendBtn.click();
+      }
+    });
+  </script>
+   
 </body>
 
 </html>
