@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     timerArea.classList.toggle('hidden');
     startBtn.style.display = isSettingsVisible ? 'none' : 'inline-block';
     settingsIcon.classList.toggle('fa-ellipsis-vertical', !isSettingsVisible);
-    settingsIcon.classList.toggle('fa-xmark', isSettingsVisible);
+    settingsIcon.classList.toggle('fa-check', isSettingsVisible);
   });
 
   tabs.forEach(tab => {

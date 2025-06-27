@@ -35,9 +35,15 @@
   <button id="loadMoreBtn" onclick="loadMore()">Load More</button>
 
   <div id="pdfViewer" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:9999;">
-    <button onclick="closeViewer()" style="position:absolute; top:10px; right:20px; z-index:10000;">❌ Close</button>
+    <button class="btn" onclick="closeViewer()" style="position:absolute; top:10px; right:20px; z-index:10000; padding: 10px 30px;"><i style="margin-right: 10px;" class="fa-solid fa-xmark"></i> Close</button>
     <iframe src="" style="width:100%; height:100%; border:none;"></iframe>
   </div>
+
+
+
+    <div class="go-to-dashboard">
+      <a class="btn" style="position:absolute; bottom:20px; right:20px; z-index:10000; padding: 10px 30px;" href="./dashboard/DashboardResourceLibrary.php"><i style="margin-right: 10px;" class="fa-solid fa-book"></i> Go to Dashboard</a>
+    </div>
 
 
      <script src="js/ResourceLibraryBook.js"></script>

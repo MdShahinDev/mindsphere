@@ -115,15 +115,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
       <div class="right-section">
         <div class="notification">
           <span class="bell-icon"><i class="fa-solid fa-bell"></i></span>
-          <span class="badge"><?= $notification_count ?></span>
+          <span class="badge">
+            <?= $notification_count ?>
+          </span>
         </div>
 
         <div class="profile-info">
           <div class="avatar-info">
-            <p class="name"><?= htmlspecialchars($user_name) ?></p>
-            <p class="location"><?= htmlspecialchars($user_location) ?></p>
+            <p class="name">
+              <?= htmlspecialchars($user_name) ?>
+            </p>
+            <p class="location">
+              <?= htmlspecialchars($user_location) ?>
+            </p>
           </div>
-          <a href="../dashboard/DashboardProfile.php"><img class="avatar" src="<?php echo htmlspecialchars($user_avatar); ?>" alt="Avatar" /></a>
+          <a href="../dashboard/DashboardProfile.php"><img class="avatar"
+              src="<?php echo htmlspecialchars($user_avatar); ?>" alt="Avatar" /></a>
         </div>
       </div>
     </header>
@@ -131,62 +138,50 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 
   <div class="page-body">
     <div class="dashboard-sidebar">
-            <div class="dashboard-menu">
-                <ul class="dashboard-menu-item">
-            <li>
-              <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
-            </li>
-            <li>
-              <a href="../dashboard/Dashboard.php"  class="active"
-                ><i class="fa-solid fa-border-all"></i>Dashboard</a
-              >
-            </li>
-            <li>
-              <a href="../dashboard/DashboardTask.php"
-                ><i class="fa-solid fa-clipboard-check"></i>Task</a
-              >
-            </li>
-            <li>
-              <a href="../dashboard/dashboardHabitML.php"
-                ><i class="fa-solid fa-person-running"></i>Habit Tracker</a
-              >
-            </li>
-            <li>
-              <a href="../dashboard/DashboardChat.php"
-                ><i class="fa-solid fa-comment"></i>Chat</a
-              >
-            </li>
-            <li>
-              <a href="../dashboard/DashboardResourceLibrary.php"
-                ><i class="fa-solid fa-book"></i>Resource Library</a
-              >
-            </li>
-            <li>
-              <a href="../dashboard/DashboardProfile.php"
-                ><i class="fa-solid fa-user"></i>Profile</a
-              >
-            </li>
-            <!-- <li>
+      <div class="dashboard-menu">
+        <ul class="dashboard-menu-item">
+          <li>
+            <a href="../index.php"><i class="fa-solid fa-house"></i>Home</a>
+          </li>
+          <li>
+            <a href="../dashboard/Dashboard.php" class="active"><i class="fa-solid fa-border-all"></i>Dashboard</a>
+          </li>
+          <li>
+            <a href="../dashboard/DashboardTask.php"><i class="fa-solid fa-clipboard-check"></i>Task</a>
+          </li>
+          <li>
+            <a href="../dashboard/dashboardHabitML.php"><i class="fa-solid fa-person-running"></i>Habit Tracker</a>
+          </li>
+          <li>
+            <a href="../dashboard/DashboardChat.php"><i class="fa-solid fa-comment"></i>Chat</a>
+          </li>
+          <li>
+            <a href="../dashboard/DashboardResourceLibrary.php"><i class="fa-solid fa-book"></i>Resource Library</a>
+          </li>
+          <li>
+            <a href="../dashboard/DashboardProfile.php"><i class="fa-solid fa-user"></i>Profile</a>
+          </li>
+          <!-- <li>
               <a href="../dashboard/DashboardSetting.php" class="active"
                 ><i class="fa-solid fa-gear"></i>Setting</a
               >
             </li> -->
-            <li>
-              <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
-            </li>
-          </ul>
-                <div class="dashboard-help-card">
-                    <div class="card">
-                        <p class="question-icon"><span>?</span></p>
-                        <div class="help-card-content">
-                            <p class="help-card-content-title">Help Center</p>
-                            <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
-                            <button class="button">Go To Help Center</button>
-                        </div>
-                    </div>
-                </div>
+          <li>
+            <a href="../logout.php"><i class="fa-solid fa-right-from-bracket"></i>Sign Out</a>
+          </li>
+        </ul>
+        <div class="dashboard-help-card">
+          <div class="card">
+            <p class="question-icon"><span>?</span></p>
+            <div class="help-card-content">
+              <p class="help-card-content-title">Help Center</p>
+              <p class="description">Having Trouble in Learning. Please contact us for more questions.</p>
+              <button class="button">Go To Help Center</button>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
     <div class="dashboard-content">
       <div class="date-header">
         <div class="date-time">
@@ -200,40 +195,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               <p class="description">You can start tracking</p>
             </div>
             <button class="task-button pomodoro-open-btn" id="openPopup"><i class="fa-solid fa-play"></i></button>
-             <!-- <button class="pomodoro-open-btn">Start Pomodoro</button> -->
+            <!-- <button class="pomodoro-open-btn">Start Pomodoro</button> -->
           </div>
 
 
 
-         
-<!-- Pomodoro Popup -->
-<div id="pomodoro-overlay" class="hidden" style="display: none;">
-  <div class="pomodoro-popup">
-    <span class="close-btn" id="pomodoro-close">✖</span>
-    <span class="settings-btn" id="pomodoro-settings"><i class="fa-solid fa-ellipsis-vertical" id="settings-icon"></i></span>
 
-    <div class="tab-buttons">
-      <button class="tab active" data-mode="pomodoro">Pomodoro</button>
-      <button class="tab" data-mode="short">Short Break</button>
-      <button class="tab" data-mode="long">Long Break</button>
-    </div>
+          <!-- Pomodoro Popup -->
+          <div id="pomodoro-overlay" class="hidden" style="display: none;">
+            <div class="pomodoro-popup">
+              <span class="close-btn" id="pomodoro-close">✖</span>
+              <span class="settings-btn" id="pomodoro-settings"><i class="fa-solid fa-ellipsis-vertical"
+                  id="settings-icon"></i></span>
 
-    <div class="timer-config hidden" id="timer-settings">
-      <label>Pomodoro (min): <input type="number" id="pomodoro-time" value="25" min="1"/></label>
-      <label>Short Break (min): <input type="number" id="short-time" value="5" min="1"/></label>
-      <label>Long Break (min): <input type="number" id="long-time" value="15" min="1"/></label>
-    </div>
+              <div class="tab-buttons">
+                <button class="tab active" data-mode="pomodoro">Pomodoro</button>
+                <button class="tab" data-mode="short">Short Break</button>
+                <button class="tab" data-mode="long">Long Break</button>
+              </div>
 
-    <div id="timer-area">
-      <div class="timer-circle">
-        <div class="timer-display" id="timer-display">25:00</div>
-      </div>
-      <button id="start-timer">Start</button>
-    </div>
+              <div class="timer-config hidden" id="timer-settings">
+                <label>Pomodoro (min): <input type="number" id="pomodoro-time" value="25" min="1" /></label>
+                <label>Short Break (min): <input type="number" id="short-time" value="5" min="1" /></label>
+                <label>Long Break (min): <input type="number" id="long-time" value="15" min="1" /></label>
+              </div>
 
-    <audio id="alarm-audio" src="../alarm.mp3" preload="auto"></audio>
-  </div>
-</div>
+              <div id="timer-area">
+                <div class="timer-circle">
+                  <div class="timer-display" id="timer-display">25:00</div>
+                </div>
+                <button id="start-timer">Start</button>
+              </div>
+
+              <audio id="alarm-audio" src="../alarm.mp3" preload="auto"></audio>
+            </div>
+          </div>
 
 
 
@@ -256,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               <span class="ms-close-btn" id="ms-closePopupBtn" aria-label="Close popup">✖</span>
               <h2 id="ms-popupTitle"> <span><i class="fas fa-plus"> &nbsp;</i></span> Add New Task</h2>
 
-              
+
               <form id="ms-taskForm" method="POST" action="">
                 <label for="ms-taskName">Task Name *</label>
                 <input type="text" name="task_name" id="ms-taskName" placeholder="Enter task name..." required />
@@ -274,8 +270,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
                   <option>3 hrs</option>
                 </select>
 
-                <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 20px;"><label for="due-date">Due Date</label>
-                <input style="width: 50%;" type="date" id="due-date" name="due_date" /></div>
+                <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 20px;"><label
+                    for="due-date">Due Date</label>
+                  <input style="width: 50%;" type="date" id="due-date" name="due_date" />
+                </div>
 
                 <label>Priority Level *</label>
                 <input type="hidden" name="priority" id="ms-priority-value" value="High">
@@ -332,53 +330,61 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
           </div>
         </div>
         <div class="bottom-section">
+
+        <!-- ====== CHART START ====== -->
+
           <div class="recent-activity">
             <div class="recent-activity-title">
-              <h2>Recent Activity</h2>
+              <h2>Efficiency Score Progression</h2>
               <p>:</p>
             </div>
-            <form action="" class="recent-activity-form">
-              <input type="text" placeholder="Kim Jong Un">
-              <button>View All</button>
-            </form>
-            <div class="recent-activity-images">
-              <img src="../img/Rectangle 168.png" alt="">
-              <img src="../img/Rectangle 169.png" alt="">
-              <img src="../img/Rectangle 170.png" alt="">
-              <img src="../img/Rectangle 187.png" alt="">
-              <img src="../img/Rectangle 189.png" alt="">
-            </div>
+
+
+            <div id="chartData" 
+              data-labels='["2025-06-01", "2025-06-05", "2025-06-10", "2025-06-15", "2025-06-20", "2025-06-25"]'
+              data-values='[72, 85, 60, 90, 78, 50]'></div>
+
+            <canvas id="efficiencyChart" width="400" height="200"></canvas>
+
+         <!-- ====== CHART END ====== -->
           </div>
-         <div class="tasks-section">
-  <div class="title">
-    <h2>Tasks</h2>
-    <div class="task-list">
-      <?php if (empty($user_tasks)): ?>
-        <p>No tasks created yet.</p>
-      <?php else: ?>
-        <?php foreach ($user_tasks as $task): ?>
-          <div class="task-item">
-            <div class="task-info">
-              <i class="fa-regular fa-folder"></i>
-              <?php
+
+
+
+          <div class="tasks-section">
+            <div class="title">
+              <h2>Tasks</h2>
+              <div class="task-list">
+                <?php if (empty($user_tasks)): ?>
+                <p>No tasks created yet.</p>
+                <?php else: ?>
+                <?php foreach ($user_tasks as $task): ?>
+                <div class="task-item">
+                  <div class="task-info">
+                    <i class="fa-regular fa-folder"></i>
+                    <?php
                 $task_name = htmlspecialchars($task['task_name']);
                 $display_name = mb_strlen($task_name) > 5 ? mb_substr($task_name, 0, 5) . '...' : $task_name;
               ?>
-              <span><?= $display_name ?></span>
-            </div>
-            <div class="task-meta">
-              <span class="time"><?= htmlspecialchars($task['duration']) ?></span>
-              <div class="progress-bar">
-                <div class="progress" style="width: <?= intval($task['progress']) ?>%;"></div>
+                    <span>
+                      <?= $display_name ?>
+                    </span>
+                  </div>
+                  <div class="task-meta">
+                    <span class="time">
+                      <?= htmlspecialchars($task['duration']) ?>
+                    </span>
+                    <div class="progress-bar">
+                      <div class="progress" style="width: <?= intval($task['progress']) ?>%;"></div>
+                    </div>
+                  </div>
+                </div>
+                <?php endforeach; ?>
+                <?php endif; ?>
               </div>
+              <a href="../dashboard/DashboardTask.php" class="view-all-btn">View All</a>
             </div>
           </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-    <button class="view-all-btn">View All</button>
-  </div>
-</div>
 
 
         </div>
@@ -387,6 +393,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
   </div>
 
 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../js/chart.js"></script>
   <script src="../js/script.js"></script>
   <script>
     // Priority level selection logic
@@ -397,7 +405,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
         document.getElementById('ms-priority-value').value = level.dataset.priority;
       });
     });
-    </script>
+  </script>
 </body>
 
 </html>

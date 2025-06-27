@@ -45,8 +45,8 @@ function loadMore() {
       <img src="${book.thumbnail}" class="thumbnail" />
       <h3>${book.title}</h3>
       <p><strong>Author:</strong> ${book.author}</p>
-      <a href="./books/${book.file}" download target="_blank">📥 Download</a>
-      <button onclick="openViewer('./books/${book.file}')">📖 View</button>
+      <a href="./books/${book.file}" download target="_blank"><i class="fa-solid fa-download"></i> Download</a>
+      <button class="btn" style="background-color: red" onclick="openViewer('./books/${book.file}')"> View</button>
     `;
     grid.appendChild(card);
   });

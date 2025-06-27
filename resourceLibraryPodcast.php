@@ -37,6 +37,13 @@
   <button id="loadMoreBtn" onclick="loadMore()">Load More</button>
 
 
+
+  <div class="go-to-dashboard">
+      <a class="btn" style="position:absolute; bottom:20px; right:20px; z-index:10000; padding: 10px 30px;" href="./dashboard/DashboardResourceLibrary.php"><i style="margin-right: 10px;" class="fa-solid fa-book"></i> Go to Dashboard</a>
+    </div>
+
+
+
      <script src="js/ResourceLibraryPodcast.js"></script>
      <script src="js/script.js"></script>
 </body>
