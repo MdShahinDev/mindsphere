@@ -20,6 +20,11 @@
 </head>
 <body>
 
+
+<div class="go-to-dashboard">
+      <a class="btn" style="position:absolute; top:20px; right:20px; z-index:10000; padding: 10px 30px;" href="./dashboard/DashboardResourceLibrary.php"><i style="margin-right: 10px;" class="fa-solid fa-book"></i> Go to Dashboard</a>
+    </div>
+
 <!-- ======== HERO SECTION STARTS HERE ======== -->
 
 
@@ -43,6 +48,10 @@
   </div>
 
  <!-- ======== FEATURE SECTION ENDS HERE ======== -->
+
+
+
+
 
    
      <script src="js/ResourceLibraryCourse.js"></script>

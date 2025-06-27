@@ -160,6 +160,7 @@ if ($stmt2) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Habit tracker</title>
     
+    <link rel="stylesheet" href="../css/habitPopup.css" />
     <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/DashboardHabitML.css" />
     <!-- Font Awesome CDN Link -->
@@ -248,6 +249,12 @@ if ($stmt2) {
                 </div>
             </div>
         </div>
+
+
+
+
+
+
         <div class="dashboard-content ">
             <div class="dashboard">
                 <div class="header2">
@@ -349,7 +356,7 @@ if ($stmt2) {
                         </div>
                         <div class="quote-box">
                             <div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-style: normal; margin-bottom: 1rem;">Efficiency Score: <span>70</span> </h3>
-                            <button class="update">Get Suggestion</button></div>
+                            <span id="openSuggestionModal" class="update">Get Suggestion</span></div>
                             <h3>🧠 <em>Motivation</em></h3>
                             <p style="padding-bottom: 2rem;">
                                 “<?= nl2br(htmlspecialchars($quote_text)) ?><br><strong>— <?= htmlspecialchars($quote_author) ?></strong>
@@ -359,6 +366,39 @@ if ($stmt2) {
                 </div>
               </form>
             </div>
+
+
+
+
+            
+  <!-- Suggestion Modal -->
+  <div id="suggestionModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <h2>🎯 Efficiency Score: <span>70</span></h2>
+
+      <div class="quote-box2">
+        <h3>💡 Motivation</h3>
+        <p>“Push yourself, because no one else is going to do it for you.”</p>
+        <p><strong>— Unknown</strong></p>
+      </div>
+
+      <div class="suggestions">
+        <h3>🌟 Suggestions</h3>
+        <ul>
+          <li>Drink at least 1.5L of water daily</li>
+          <li>Increase exercise time to 30 mins</li>
+          <li>Target 7–8 hours of sleep tonight</li>
+          <li>Try a 10-minute meditation session</li>
+          <li>Plan your meals for the next day</li>
+        </ul>
+      </div>
+
+      <button class="modal-close-btn">Close</button>
+    </div>
+  </div>
+
 
         </div>
 
@@ -374,6 +414,7 @@ if ($stmt2) {
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../js/habitPopup.js"></script>
     <script src="../js/DashboardHabitML.js"></script>
     <script>
       function updateDateTime() {
