@@ -197,7 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
         <a href="../dashboard/DashboardTaskCompleted.php" class="active">Completed</a>
       </div>
       <div class="nav-btn">
-          <button class="navBtn" id="ms-openPopupBtn">Add Task <i class="fa-solid fa-plus"></i></button>
+          <button style="display: none;" class="navBtn" id="ms-openPopupBtn">Add Task <i class="fa-solid fa-plus"></i></button>
       </div>
       </div>
 
