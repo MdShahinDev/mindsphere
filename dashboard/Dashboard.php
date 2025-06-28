@@ -85,7 +85,65 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
     }
 }
 
+// Fetch graph data for efficiency score
+$stmt = $conn->prepare("
+    SELECT date, MAX(score) as max_score
+    FROM habit_score
+    WHERE user_id = ?
+    GROUP BY date
+    ORDER BY date ASC
+");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$dates = [];
+$scores = [];
+while ($row = $result->fetch_assoc()) {
+    $dates[] = $row['date'];
+    $scores[] = (int) $row['max_score'];
+}
+$labels = htmlspecialchars(json_encode($dates), ENT_QUOTES, 'UTF-8');
+$values = htmlspecialchars(json_encode($scores), ENT_QUOTES, 'UTF-8');
 
+// All Activity time, tasks, and other data are fetched
+
+$stmt = $conn->prepare("SELECT duration, status FROM tasks WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$total_tasks = 0;
+$completed_tasks = 0;
+$total_minutes = 0;
+
+while ($row = $result->fetch_assoc()) {
+    $total_tasks++;
+
+    if ($row['status'] === 'Completed') {
+        $completed_tasks++;
+
+        // duration format ধরুন: '5 min', '2 hrs', '1 hr', etc
+        $duration = strtolower($row['duration']);
+        $minutes = 0;
+
+        if (strpos($duration, 'hr') !== false) {
+            // hour আছে
+            preg_match('/(\d+)\s*hr[s]?/', $duration, $matches);
+            $minutes += isset($matches[1]) ? $matches[1] * 60 : 0;
+        }
+
+        if (strpos($duration, 'min') !== false) {
+            preg_match('/(\d+)\s*min[s]?/', $duration, $matches);
+            $minutes += isset($matches[1]) ? $matches[1] : 0;
+        }
+
+        $total_minutes += $minutes;
+    }
+}
+
+$hours = floor($total_minutes / 60);
+$minutes = $total_minutes % 60;
+$formatted_time = sprintf("%02d:%02d:00", $hours, $minutes);
+$progress_percent = $total_tasks > 0 ? round(($completed_tasks / $total_tasks) * 100) : 0;
 ?>
 
 
@@ -99,7 +157,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Task</title>
+  <title>Dashboard | Mindsphere</title>
   <link rel="stylesheet" href="../css/style.css" />
   <!-- Font Awesome CDN Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
@@ -304,7 +362,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               <p>:</p>
             </div>
             <div class="data-card-text">
-              <p class="progress">90%</p>
+              <p class="progress"><?php echo $progress_percent; ?>%</p>
               <p class="icon"><i class="fa-solid fa-code-merge"></i></p>
             </div>
           </div>
@@ -314,7 +372,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               <p>:</p>
             </div>
             <div class="data-card-text">
-              <p class="progress">42:04:36</p>
+              <p class="progress"><?php echo $formatted_time; ?></p>
               <p class="icon"><i class="fa-solid fa-arrow-rotate-right"></i></p>
             </div>
           </div>
@@ -324,7 +382,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
               <p>:</p>
             </div>
             <div class="data-card-text">
-              <p class="progress">03</p>
+              <p class="progress"><?php echo $completed_tasks; ?></p>
               <p class="icon"><i class="fa-regular fa-folder"></i></p>
             </div>
           </div>
@@ -340,10 +398,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['task_name'])) {
             </div>
 
 
-            <div id="chartData" 
+            <!-- <div id="chartData" 
               data-labels='["2025-06-01", "2025-06-05", "2025-06-10", "2025-06-15", "2025-06-20", "2025-06-25"]'
-              data-values='[72, 85, 60, 90, 78, 50]'></div>
-
+              data-values='[72, 85, 60, 90, 78, 50]'></div> -->
+            <div id="chartData"
+     data-labels='<?php echo $labels; ?>'
+     data-values='<?php echo $values; ?>'></div>
             <canvas id="efficiencyChart" width="400" height="200"></canvas>
 
          <!-- ====== CHART END ====== -->

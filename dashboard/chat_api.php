@@ -22,7 +22,7 @@ if (empty($user_message)) {
 // gpt-3.0-turbo-0613
 // $api_key = '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';
 // Gemini 2.5 Flash lite preview
-$api_key = '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';
+$api_key = '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';
 $api_url = 'https://openrouter.ai/api/v1/chat/completions';
 
 $payload = [
@@ -42,7 +42,8 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     'Content-Type: application/json',
     'Authorization: Bearer ' . $api_key,
-    'HTTP-Referer: http://localhost/mindsphere/',
+    // 'HTTP-Referer: http://localhost/mindsphere/',
+    'Referer: http://localhost/mindsphere/', 
 
     'X-Title: Mindsphere Chat'
 ]);

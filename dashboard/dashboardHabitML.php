@@ -197,7 +197,7 @@ if ($stmt2) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Habit tracker</title>
+    <title>Habit Tracker | Mindsphere</title>
     
     <link rel="stylesheet" href="../css/habitPopup.css" />
     <link rel="stylesheet" href="../css/style.css" />
