@@ -187,6 +187,82 @@ if ($stmt2) {
 }
 
 
+
+// Get latest efficiency score from habit_score table
+$average = null;
+$stmt = $conn->prepare("SELECT score FROM habit_score WHERE user_id = ? ORDER BY date DESC, id DESC LIMIT 1");;
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$stmt->bind_result($score);
+if ($stmt->fetch()) {
+    $average = $score;
+}
+$stmt->close();
+
+$suggestionLabel = "Unknown";
+
+if ($average !== null) {
+    if ($average <= 19) {
+        $suggestionLabel = "🟥 Poor";
+        $scoreGroup = "poor";
+    } elseif ($average <= 39) {
+        $suggestionLabel = "🟧 Bad";
+        $scoreGroup = "bad";
+    } elseif ($average <= 59) {
+        $suggestionLabel = "🟨 Normal";
+        $scoreGroup = "normal";
+    } elseif ($average <= 79) {
+        $suggestionLabel = "🟩 Good";
+        $scoreGroup = "good";
+    } elseif ($average <= 100) {
+        $suggestionLabel = "🟦 Excellent";
+        $scoreGroup = "excellent";
+    }
+}
+
+
+// Fetch one random quote from your motivation_quotes table
+
+$quoteText = "Stay motivated!";
+
+if (!empty($scoreGroup)) {
+    $stmt = $conn->prepare("SELECT quote FROM motivation_quotes WHERE score_group = ? ORDER BY RAND() LIMIT 1");
+    $stmt->bind_param("s", $scoreGroup);
+    $stmt->execute();
+    $stmt->bind_result($quote);
+    if ($stmt->fetch()) {
+        $quoteText = $quote;
+    }
+    $stmt->close();
+}
+
+
+// Fetch 3 random suggestions
+
+
+$suggestions = [];
+
+if (!empty($scoreGroup)) {
+    $stmt = $conn->prepare("
+        SELECT skill_name, suggestion_text 
+        FROM skill_suggestions 
+        WHERE score_group = ? 
+        ORDER BY RAND() 
+        LIMIT 3
+    ");
+    $stmt->bind_param("s", $scoreGroup);
+    $stmt->execute();
+    $stmt->bind_result($skill, $text);
+
+    while ($stmt->fetch()) {
+        $suggestions[] = "$skill - $text";
+    }
+
+    $stmt->close();
+}
+
+
+
 ?>
 
 
@@ -394,7 +470,7 @@ if ($stmt2) {
                             
                         </div>
                         <div class="quote-box">
-                            <div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-style: normal; margin-bottom: 1rem;">Efficiency Score: <span>70</span> </h3>
+                            <div style="text-align: center; margin-bottom: 2rem;"><h3 style="font-style: normal; margin-bottom: 1rem;">Efficiency Score: <span><?= $average !== null ? $average : 'Not yet calculated' ?></span> </h3>
                             <span id="openSuggestionModal" class="update">Get Suggestion</span></div>
                             <h3>🧠 <em>Motivation</em></h3>
                             <p style="padding-bottom: 2rem;">
@@ -415,22 +491,20 @@ if ($stmt2) {
     <div class="modal-content">
       <span class="close">&times;</span>
 
-      <h2>🎯 Efficiency Score: <span>70</span></h2>
+      <h2>🎯 Efficiency Score: <span><?= $average !== null ? $average : 'Not yet calculated' ?></span></h2>
 
       <div class="quote-box2">
         <h3>💡 Motivation</h3>
-        <p>“Push yourself, because no one else is going to do it for you.”</p>
-        <p><strong>— Unknown</strong></p>
+        <p><?= htmlspecialchars($quoteText) ?></p>
       </div>
 
       <div class="suggestions">
         <h3>🌟 Suggestions</h3>
+        <p><strong>Efficiency Status:</strong> <?= $suggestionLabel ?></p>
         <ul>
-          <li>Drink at least 1.5L of water daily</li>
-          <li>Increase exercise time to 30 mins</li>
-          <li>Target 7–8 hours of sleep tonight</li>
-          <li>Try a 10-minute meditation session</li>
-          <li>Plan your meals for the next day</li>
+          <?php foreach ($suggestions as $item): ?>
+            <li><?= htmlspecialchars($item) ?></li>
+          <?php endforeach; ?>
         </ul>
       </div>
 

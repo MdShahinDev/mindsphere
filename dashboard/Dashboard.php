@@ -243,8 +243,8 @@ $progress_percent = $total_tasks > 0 ? round(($completed_tasks / $total_tasks) *
     <div class="dashboard-content">
       <div class="date-header">
         <div class="date-time">
-          <h3>Today</h3>
-          <p>June 22, 2025 | 09:10 AM</p>
+          <h3 id="dayName">Today</h3>
+          <p id="fullDate">Loading date and time...</p>
         </div>
         <div class="avctivity">
           <div class="time-tracker">
@@ -466,6 +466,34 @@ $progress_percent = $total_tasks > 0 ? round(($completed_tasks / $total_tasks) *
       });
     });
   </script>
+
+  <script>
+  function updateDateTime() {
+      const now = new Date();
+
+      const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const dayName = dayNames[now.getDay()];
+
+      const monthNames = ["January", "February", "March", "April", "May", "June",
+                          "July", "August", "September", "October", "November", "December"];
+      const month = monthNames[now.getMonth()];
+      const date = now.getDate();
+      const year = now.getFullYear();
+
+      let hours = now.getHours();
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12 || 12;
+
+      const fullDate = `${dayName}, ${month} ${date}, ${year} | ${hours}:${minutes} ${ampm}`;
+
+      document.getElementById("fullDate").textContent = fullDate;
+  }
+
+  updateDateTime();
+  setInterval(updateDateTime, 60000);
+</script>
+
 </body>
 
 </html>

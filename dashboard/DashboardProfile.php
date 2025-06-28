@@ -272,13 +272,57 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
                         <input type="password" name="new_password" autocomplete="new-password" placeholder="New password (leave blank to keep current)" />
 
                         <label>Select Profession</label>
-                        <select name="profession">
+                        <!-- <select name="profession">
                             <option value="">Select your profession</option>
                             <option value="Software Engineer" <?php if ($user_profession == 'Software Engineer') echo 'selected'; ?>>Software Engineer</option>
                             <option value="Frontend Developer" <?php if ($user_profession == 'Frontend Developer') echo 'selected'; ?>>Frontend Developer</option>
                             <option value="Backend Developer" <?php if ($user_profession == 'Backend Developer') echo 'selected'; ?>>Backend Developer</option>
                             <option value="Data Scientist" <?php if ($user_profession == 'Data Scientist') echo 'selected'; ?>>Data Scientist</option>
                             <option value="UI/UX Designer" <?php if ($user_profession == 'UI/UX Designer') echo 'selected'; ?>>UI/UX Designer</option>
+                        </select> -->
+                        <select name="profession">
+                            <option value="">Select your profession</option>
+
+                            <!-- 🧠 Technical & Development Roles -->
+                            <option value="Software Engineer" <?php if ($user_profession == 'Software Engineer') echo 'selected'; ?>>Software Engineer</option>
+                            <option value="Frontend Developer" <?php if ($user_profession == 'Frontend Developer') echo 'selected'; ?>>Frontend Developer</option>
+                            <option value="Backend Developer" <?php if ($user_profession == 'Backend Developer') echo 'selected'; ?>>Backend Developer</option>
+                            <option value="Full Stack Developer" <?php if ($user_profession == 'Full Stack Developer') echo 'selected'; ?>>Full Stack Developer</option>
+                            <option value="Mobile App Developer" <?php if ($user_profession == 'Mobile App Developer') echo 'selected'; ?>>Mobile App Developer</option>
+                            <option value="DevOps Engineer" <?php if ($user_profession == 'DevOps Engineer') echo 'selected'; ?>>DevOps Engineer</option>
+                            <option value="AI Engineer" <?php if ($user_profession == 'AI Engineer') echo 'selected'; ?>>AI Engineer</option>
+                            <option value="Machine Learning Engineer" <?php if ($user_profession == 'Machine Learning Engineer') echo 'selected'; ?>>Machine Learning Engineer</option>
+                            <option value="Data Scientist" <?php if ($user_profession == 'Data Scientist') echo 'selected'; ?>>Data Scientist</option>
+                            <option value="Data Analyst" <?php if ($user_profession == 'Data Analyst') echo 'selected'; ?>>Data Analyst</option>
+
+                            <!-- 🎨 Design & Creative -->
+                            <option value="UI/UX Designer" <?php if ($user_profession == 'UI/UX Designer') echo 'selected'; ?>>UI/UX Designer</option>
+                            <option value="Product Designer" <?php if ($user_profession == 'Product Designer') echo 'selected'; ?>>Product Designer</option>
+                            <option value="Graphic Designer" <?php if ($user_profession == 'Graphic Designer') echo 'selected'; ?>>Graphic Designer</option>
+                            <option value="Motion Designer" <?php if ($user_profession == 'Motion Designer') echo 'selected'; ?>>Motion Designer</option>
+                            <option value="Creative Technologist" <?php if ($user_profession == 'Creative Technologist') echo 'selected'; ?>>Creative Technologist</option>
+
+                            <!-- 📊 Strategy & Leadership -->
+                            <option value="Product Manager" <?php if ($user_profession == 'Product Manager') echo 'selected'; ?>>Product Manager</option>
+                            <option value="Project Manager" <?php if ($user_profession == 'Project Manager') echo 'selected'; ?>>Project Manager</option>
+                            <option value="Business Analyst" <?php if ($user_profession == 'Business Analyst') echo 'selected'; ?>>Business Analyst</option>
+                            <option value="Scrum Master" <?php if ($user_profession == 'Scrum Master') echo 'selected'; ?>>Scrum Master</option>
+                            <option value="Innovation Strategist" <?php if ($user_profession == 'Innovation Strategist') echo 'selected'; ?>>Innovation Strategist</option>
+
+                            <!-- 📚 Learning & Growth -->
+                            <option value="Academic Researcher" <?php if ($user_profession == 'Academic Researcher') echo 'selected'; ?>>Academic Researcher</option>
+                            <option value="Instructional Designer" <?php if ($user_profession == 'Instructional Designer') echo 'selected'; ?>>Instructional Designer</option>
+                            <option value="Learning Designer" <?php if ($user_profession == 'Learning Designer') echo 'selected'; ?>>Learning Designer</option>
+                            <option value="Online Educator" <?php if ($user_profession == 'Online Educator') echo 'selected'; ?>>Online Educator</option>
+
+                            <!-- 🧰 Coaching & Self-Development -->
+                            <option value="Life Coach" <?php if ($user_profession == 'Life Coach') echo 'selected'; ?>>Life Coach</option>
+                            <option value="Productivity Consultant" <?php if ($user_profession == 'Productivity Consultant') echo 'selected'; ?>>Productivity Consultant</option>
+                            <option value="Wellness Coach" <?php if ($user_profession == 'Wellness Coach') echo 'selected'; ?>>Wellness Coach</option>
+                            <option value="Self-Discipline Coach" <?php if ($user_profession == 'Self-Discipline Coach') echo 'selected'; ?>>Self-Discipline Coach</option>
+                            <option value="Time Management Trainer" <?php if ($user_profession == 'Time Management Trainer') echo 'selected'; ?>>Time Management Trainer</option>
+                            <option value="Mindfulness Coach" <?php if ($user_profession == 'Mindfulness Coach') echo 'selected'; ?>>Mindfulness Coach</option>
+                            <option value="Efficiency Analyst" <?php if ($user_profession == 'Efficiency Analyst') echo 'selected'; ?>>Efficiency Analyst</option>
                         </select>
 
                         <div class="action-buttons">
@@ -370,7 +414,7 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
         <form method="POST" action="">
             <h3>Add Skill</h3>
             <input type="hidden"  name="skill_type" id="skill-type" value="">
-            <select id="skill-name" name="skill_name" required>
+            <!-- <select id="skill-name" name="skill_name" required>
                 <option value="Public Speaking">Public Speaking</option>
                 <option value="Negotiation">Negotiation</option>
                 <option value="Driving">Driving</option>
@@ -383,7 +427,56 @@ if ($res) $professional_skills = $res->fetch_all(MYSQLI_ASSOC);
                 <option value="UI/UX Design">UI/UX Design</option>
                 <option value="Data Structure">Data Structure</option>
                 <option value="Blockchain">Blockchain</option>
-            </select>
+            </select> -->
+            <select id="skill-name" name="skill_name" required>
+            <!-- 🚀 Core Soft Skills -->
+            <option value="Public Speaking">Public Speaking</option>
+            <option value="Negotiation">Negotiation</option>
+            <option value="Team Work">Team Work</option>
+            <option value="Leadership">Leadership</option>
+            <option value="Time Management">Time Management</option>
+            <option value="Emotional Intelligence">Emotional Intelligence</option>
+            <option value="Critical Thinking">Critical Thinking</option>
+            <option value="Problem Solving">Problem Solving</option>
+            <option value="Decision Making">Decision Making</option>
+            <option value="Self Discipline">Self Discipline</option>
+
+            <!-- 💻 Tech & Dev Skills -->
+            <option value="Python">Python</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="NEXT JS">NEXT JS</option>
+            <option value="React">React</option>
+            <option value="Node.js">Node.js</option>
+            <option value="Machine Learning">Machine Learning</option>
+            <option value="Deep Learning">Deep Learning</option>
+            <option value="Data Structure">Data Structure</option>
+            <option value="Algorithms">Algorithms</option>
+            <option value="DBMS">DBMS</option>
+            <option value="Blockchain">Blockchain</option>
+            <option value="APIs">APIs</option>
+
+            <!-- 🎨 Design & UX -->
+            <option value="UI/UX Design">UI/UX Design</option>
+            <option value="Wireframing">Wireframing</option>
+            <option value="Prototyping">Prototyping</option>
+            <option value="Figma">Figma</option>
+            <option value="Design Thinking">Design Thinking</option>
+
+            <!-- 📈 Productivity & Personal Growth -->
+            <option value="Focus Management">Focus Management</option>
+            <option value="Habit Building">Habit Building</option>
+            <option value="Mindfulness">Mindfulness</option>
+            <option value="Journaling">Journaling</option>
+            <option value="Learning Strategy">Learning Strategy</option>
+            <option value="Goal Setting">Goal Setting</option>
+            <option value="Efficiency Optimization">Efficiency Optimization</option>
+
+            <!-- 🧠 Learning & Instruction -->
+            <option value="Content Writing">Content Writing</option>
+            <option value="Teaching">Teaching</option>
+            <option value="Online Course Creation">Online Course Creation</option>
+            <option value="Research Writing">Research Writing</option>
+        </select>
             <input type="number" id="skill-grade" name="skill_grade" placeholder="Grade (1-5)" min="1" max="5" required />
             <label class="checkbox_label">
                 <input type="checkbox" id="skill-assessed" name="skill_assessed" /> Assessed
