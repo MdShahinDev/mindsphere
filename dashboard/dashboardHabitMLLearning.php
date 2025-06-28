@@ -38,13 +38,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    if ($inserted) {
+    // Efficiency Score
+
+      $average = 0;
+      $inserted1 = false;
+
+      $stmt3 = $conn->prepare("SELECT SUM(`habit_value_score`) FROM `habit_log` WHERE `user_id` = ?");
+      if ($stmt3) {
+          $stmt3->bind_param("s", $user_id);
+          $stmt3->execute();
+          $stmt3->bind_result($total_score);
+          $stmt3->fetch();
+          $stmt3->close();
+      }
+
+      $stmt4 = $conn->prepare("SELECT COUNT(DISTINCT `date`) AS unique_date_count FROM `habit_log` WHERE `user_id` = ?");
+      if ($stmt4) {
+          $stmt4->bind_param("s", $user_id);
+          $stmt4->execute();
+          $stmt4->bind_result($date_count);
+          $stmt4->fetch();
+          $stmt4->close();
+      }
+
+
+      $average = floor($total_score / $date_count);
+
+      // Insert into habit_score
+      $stmt5 = $conn->prepare("INSERT INTO `habit_score` (`id`, `user_id`, `score`, `date`) VALUES (NULL, ?, ?, ?)");
+      if ($stmt5) {
+          $stmt5->bind_param("iis", $user_id, $average, $date); 
+          $stmt5->execute();
+          $stmt5->close();
+          $inserted1 = true;
+      }
+
+    if ($inserted && $inserted1) {
         header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=1");
     } else {
         header("Location: " . strtok($_SERVER['REQUEST_URI'], '?') . "?success=0");
     }
     exit();
 }
+
+
+
 ?>
 
 
@@ -149,6 +187,10 @@ if ($stmt2) {
     }
     $stmt2->close();
 }
+
+
+
+
 
 ?>
 
@@ -343,8 +385,8 @@ if ($stmt2) {
                     <div class="right">
                         <div class="calendar-section" style="display: flex; gap: 1rem;">
                       
-                            <input style="width: 100%;" type="date" id="dob" name="dob" value="2025-06-17" min="2020-01-01" max="2030-12-31" required>
-
+                            <!-- <input style="width: 100%;" type="date" id="dob" name="dob" value="2025-06-28" min="2020-01-01" max="2030-12-31" required> -->
+                            <input style="width: 100%;" type="date" id="dob" name="dob" min="2020-01-01" max="2030-12-31" required>
                             
                         </div>
                         <div class="quote-box">
@@ -465,6 +507,12 @@ if ($stmt2) {
       const userName = <?= json_encode($user_name) ?>;
       showGreeting(userName);
     </script>
+
+  <script>
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dob').value = today;
+  </script>
 
 </body>
 

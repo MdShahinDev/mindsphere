@@ -68,17 +68,17 @@
             <div class="service-cards">
                 <div class="service-card">
                     <div class="service-icon chat-icon"></div>
-                    <h3>Live Chat</h3>
+                    <a href="login.php"><h3>Live Chat</h3></a>
                     <p>Connect instantly with experts or peers to ask questions and get real-time help.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon exam-icon"></div>
-                    <h3>Examination</h3>
+                    <a href="login.php"><h3>Examination</h3></a>
                     <p>Test your knowledge with structured quizzes and assessments.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-icon medal-icon"></div>
-                    <h3>Competition</h3>
+                    <a href="login.php"><h3>Competition</h3></a>
                     <p>Participate in challenges to compete, learn, and earn rewards.</p>
                 </div>
             </div>
@@ -105,35 +105,35 @@
                                 <img src="img/productivity-tracker.png" alt="">
                             </div>
                             <h3>Productivity Tracker</h3>
-                            <button class="enroll-btn">Enroll Now</button>
+                            <a href="login.php"><button class="enroll-btn">Enroll Now</button></a>
                         </div>
                         <div class="feature-card">
                             <div class="feature-image resource-img">
                                 <img src="img/resourse-library.png" alt="">
                             </div>
                             <h3>Resource Library</h3>
-                            <button class="enroll-btn">Enroll Now</button>
+                            <a href="login.php"><button class="enroll-btn">Enroll Now</button></a>
                         </div>
                         <div class="feature-card">
                             <div class="feature-image analytics-img">
                                 <img src="img/analytical-dashboard.png" alt="">
                             </div>
                             <h3>Analytical Dashboard</h3>
-                            <button class="enroll-btn">Enroll Now</button>
+                            <a href="login.php"><button class="enroll-btn">Enroll Now</button></a>
                         </div>
                         <div class="feature-card">
                             <div class="feature-image ai-img">
                                 <img src="img/ai-assistant.png" alt="">
                             </div>
                             <h3>AI Assistant</h3>
-                            <button class="enroll-btn">Enroll Now</button>
+                            <a href="login.php"><button class="enroll-btn">Enroll Now</button></a>
                         </div>
                         <div class="feature-card">
                             <div class="feature-image habit-img">
                                 <img src="img/productivity-tracker.png" alt="">
                             </div>
                             <h3>Habit Tracker</h3>
-                            <button class="enroll-btn">Enroll Now</button>
+                            <a href="login.php"><button class="enroll-btn">Enroll Now</button></a>
                         </div>
                     </div>
                 </div>
