@@ -22,8 +22,11 @@ if (empty($user_message)) {
 // gpt-3.0-turbo-0613
 // $api_key = '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';
 // Gemini 2.5 Flash lite preview
-$api_key = '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';
+$api_key = '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';
 $api_url = 'https://openrouter.ai/api/v1/chat/completions';
+
+// Test
+$system_prompt = "You are a helpful AI assistant for our company. Always answer questions with a friendly tone. If asked about pricing, reply: 'Our plans start at $9.99/month.' If asked about registration, guide the user step-by-step.";
 
 $payload = [
     // 'model' => 'deepseek/deepseek-r1-0528:free',
@@ -31,7 +34,16 @@ $payload = [
     'model' => 'google/gemini-2.5-flash-lite-preview-06-17',
 
     'messages' => [
-        ['role' => 'system', 'content' => 'You are a helpful AI assistant.'],
+        ['role' => 'system', 'content' => $system_prompt],
+
+        // Test
+        ['role' => 'user', 'content' => 'How much does your service cost?'],
+        ['role' => 'assistant', 'content' => 'Our plans start at $9.99/month.'],
+
+        ['role' => 'user', 'content' => 'How do I register?'],
+        ['role' => 'assistant', 'content' => 'To register, click the "Sign Up" button on the top right and follow the instructions.'],
+
+
         ['role' => 'user', 'content' => $user_message]
     ]
 ];
